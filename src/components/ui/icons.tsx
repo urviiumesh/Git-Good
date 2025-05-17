@@ -20,6 +20,15 @@ import {
   AlignJustify,
   LucideProps,
   Send,
+  Lock,
+  ShieldAlert,
+  RefreshCw,
+  Smartphone,
+  Check,
+  Calendar,
+  Laptop,
+  ExternalLink,
+  AlertTriangle,
 } from "lucide-react";
 
 export const Icons = {
@@ -60,4 +69,14 @@ export const Icons = {
   menu: Menu,
   alignJustify: AlignJustify,
   send: Send,
+  // Security icons
+  lock: Lock,
+  shieldAlert: ShieldAlert,
+  refreshCw: RefreshCw,
+  smartphone: Smartphone,
+  check: Check,
+  calendar: Calendar,
+  laptop: Laptop,
+  externalLink: ExternalLink,
+  alertTriangle: AlertTriangle,
 }; 

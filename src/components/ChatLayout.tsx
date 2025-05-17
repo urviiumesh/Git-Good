@@ -239,7 +239,7 @@ export const ChatLayout: React.FC = () => {
         </div>
         
         {/* Conversation List */}
-        <div className="flex-1 overflow-auto pb-16">
+        <div className="flex-1 overflow-auto">
           <ConversationList
             conversations={conversations}
             activeConversationId={activeConversationId}
@@ -251,7 +251,7 @@ export const ChatLayout: React.FC = () => {
         </div>
         
         {/* User Account - fixed at the bottom */}
-        <div className="absolute bottom-0 left-0 right-0 bg-background border-t border-border">
+        <div className="absolute bottom-0 left-0 right-0 bg-background border-t border-border z-10">
           <UserAccount isCollapsed={sidebarCollapsed} onLogout={handleLogout} />
         </div>
       </div>

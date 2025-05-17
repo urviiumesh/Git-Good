@@ -138,25 +138,10 @@
     "updatedAt": "2025-05-17 19:32:59.426000+00:00"
   },
   {
-    "id": "1747512910526",
-    "title": "what are MCP servers",
-    "messages": [
-      {
-        "id": "1747512919905",
-        "content": "what are MCP servers",
-        "isUser": true,
-        "timestamp": "2025-05-17 20:15:19.905000+00:00",
-        "isStreaming": null
-      },
-      {
-        "id": "1747512919938",
-        "content": "\ud83d\udcad Starting to analyze the problem...\n\n\ud83d\udcad Thought 1/3\nWhat is the difference between an MCP server and an MCSE server?\n\n\ud83d\udcad Thought 2/3\nMCP stands for Microsoft Certified Professional. It is a certification program that demonstrates technical knowledge and skills in specific areas of information technology. The MCP program consists of various exams that individuals must pass to obtain the certification. These exam\n\n",
-        "isUser": false,
-        "timestamp": "2025-05-17 20:15:19.937000+00:00",
-        "isStreaming": true
-      }
-    ],
-    "createdAt": "2025-05-17 20:15:10.526000+00:00",
-    "updatedAt": "2025-05-17 20:16:13.226000+00:00"
+    "id": "1747516957087",
+    "title": "New Conversation",
+    "messages": [],
+    "createdAt": "2025-05-17 21:22:37.087000+00:00",
+    "updatedAt": "2025-05-17 21:22:37.087000+00:00"
   }
 ]

@@ -37,7 +37,7 @@ export const Login = () => {
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     try {
-      const email = `${data.username}@company.com`;
+      const email = `${data.username}@msrit.edu`;
       await login(email, data.password);
       toast({
         title: "Login successful",
@@ -75,8 +75,7 @@ export const Login = () => {
     }
   };
 
-  const handleGoogleError = (error: any) => {
-    console.error("Google login error:", error);
+  const handleGoogleError = () => {
     toast({
       title: "Google login failed",
       description: "There was a problem with Google authentication. Please try again.",
@@ -111,7 +110,7 @@ export const Login = () => {
                   className="rounded-r-none"
               />
                 <div className="flex items-center justify-center px-3 border border-l-0 border-input bg-muted text-muted-foreground rounded-r-md">
-                  @company.com
+                  @msrit.edu
                 </div>
               </div>
               {errors.username && (

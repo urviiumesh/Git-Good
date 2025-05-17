@@ -19,6 +19,7 @@ import {
   Menu,
   AlignJustify,
   LucideProps,
+  Send,
 } from "lucide-react";
 
 export const Icons = {
@@ -58,4 +59,5 @@ export const Icons = {
   moon: Moon,
   menu: Menu,
   alignJustify: AlignJustify,
+  send: Send,
 }; 

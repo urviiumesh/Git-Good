@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       // Validate company email domain
-      if (!email.endsWith('@company.com')) {
+      if (!email.endsWith('@msrit.edu')) {
         throw new Error('Invalid email domain');
       }
 

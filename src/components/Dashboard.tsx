@@ -2062,7 +2062,7 @@ function AccountsFinance() {
   );
 }
 
-export function Dashboard() {
+export default function Dashboard() {
   const [activeRole, setActiveRole] = useState('cpo');
   const [isRefreshing, setIsRefreshing] = useState(false);
 

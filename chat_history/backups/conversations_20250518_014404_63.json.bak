@@ -1,0 +1,140 @@
+[
+  {
+    "id": "1747508280339",
+    "title": "What are the key principles of...",
+    "messages": [
+      {
+        "id": "1747508293721",
+        "content": "What are the key principles of responsive design?",
+        "isUser": true,
+        "timestamp": "2025-05-17 18:58:13.721000+00:00",
+        "isStreaming": null
+      },
+      {
+        "id": "1747508293761",
+        "content": " Responsive design is an approach to web design that makes websites highly usable and functional on any device. The key principles include fluid grids, flexible images, media queries, and user-centered design. These elements work together to create a Responsive design is an approach to web design that makes websites highly usable and functional on any device. The key principles include fluid grids, flexible images, media queries, and user-centered design. These elements work together to create a",
+        "isUser": false,
+        "timestamp": "2025-05-17 18:58:13.760000+00:00",
+        "isStreaming": false
+      }
+    ],
+    "createdAt": "2025-05-17 18:58:00.339000+00:00",
+    "updatedAt": "2025-05-17 18:58:50.597000+00:00"
+  },
+  {
+    "id": "1747508391801",
+    "title": "Explain the concepts of authen...",
+    "messages": [
+      {
+        "id": "1747508394772",
+        "content": "Explain the concepts of authentication vs authorization",
+        "isUser": true,
+        "timestamp": "2025-05-17 18:59:54.772000+00:00",
+        "isStreaming": null
+      },
+      {
+        "id": "1747508394807",
+        "content": " Authentication is the process of verifying a user's identity, while authorization is the process of determining what actions or resources that authenticated user is allowed to access. In other words, authentication ensures that you are who you claim to be Authentication is the process of verifying a user's identity, while authorization is the process of determining what actions or resources that authenticated user is allowed to access. In other words, authentication ensures that you are who you claim to be",
+        "isUser": false,
+        "timestamp": "2025-05-17 18:59:54.807000+00:00",
+        "isStreaming": false
+      }
+    ],
+    "createdAt": "2025-05-17 18:59:51.801000+00:00",
+    "updatedAt": "2025-05-17 19:00:51.012000+00:00"
+  },
+  {
+    "id": "1747509587019",
+    "title": "what is dynamic programming",
+    "messages": [
+      {
+        "id": "1747509599536",
+        "content": "what is dynamic programming",
+        "isUser": true,
+        "timestamp": "2025-05-17 19:19:59.536000+00:00",
+        "isStreaming": null
+      },
+      {
+        "id": "1747509599571",
+        "content": " Dynamic programming is a technique used in computer science to optimize the time and space complexity of algorithms by breaking down complex problems into smaller subproblems that can be solved independently. It involves storing the results of previously computed subproblems Dynamic programming is a technique used in computer science to optimize the time and space complexity of algorithms by breaking down complex problems into smaller subproblems that can be solved independently. It involves storing the results of previously computed subproblems",
+        "isUser": false,
+        "timestamp": "2025-05-17 19:19:59.571000+00:00",
+        "isStreaming": false
+      }
+    ],
+    "createdAt": "2025-05-17 19:19:47.019000+00:00",
+    "updatedAt": "2025-05-17 19:20:37.891000+00:00"
+  },
+  {
+    "id": "1747509749936",
+    "title": "what is BFS algorithm\n",
+    "messages": [
+      {
+        "id": "1747509803951",
+        "content": "what is BFS algorithm\n",
+        "isUser": true,
+        "timestamp": "2025-05-17 19:23:23.951000+00:00",
+        "isStreaming": null
+      },
+      {
+        "id": "1747509804004",
+        "content": " Breadth-first search (BFS) is a graph traversal algorithm that visits all nodes at the current depth before moving on to the next level. It uses a queue data structure to keep track of the nodes to visit, and it visits Breadth-first search (BFS) is a graph traversal algorithm that visits all nodes at the current depth before moving on to the next level. It uses a queue data structure to keep track of the nodes to visit, and it visits",
+        "isUser": false,
+        "timestamp": "2025-05-17 19:23:24.003000+00:00",
+        "isStreaming": false
+      },
+      {
+        "id": "1747509851263",
+        "content": "what is BFS algorithm in detail",
+        "isUser": true,
+        "timestamp": "2025-05-17 19:24:11.263000+00:00",
+        "isStreaming": null
+      },
+      {
+        "id": "1747509851310",
+        "content": "\ud83d\udcad Starting to analyze the problem...\n\n\ud83d\udcad Thought 1/5\n1. What is BFS algorithm? 2. How does it work? 3. Advantages and disadvantages of BFS algorithm.\n\nAnswer: 1. Breadth-First Search (BFS) is\n\n\ud83d\udcad Thought 2/5\n1. Breadth-First Search (BFS) is an algorithm that traverses a tree or graph by visiting all of the nodes at each depth level before moving on to the next level. It starts at the root node and explores all\n\n\ud83d\udcad Thought 3/5\n1. The Breadth-First Search (BFS) algorithm is a graph traversal algorithm that visits every node at each level of a tree or graph before moving on to the next level. It starts at a root node and explores all\n\n\ud83d\udcad Thought 4/5\n1. The Breadth-First Search (BFS) algorithm is a graph traversal algorithm that visits every node at each level of a tree or graph before moving on to the next level. It starts at a root node and explores all\n\n\ud83d\udcad Thought 5/5\nBFS algorithm is a graph traversal algorithm that visits every node at each level of a tree or graph before moving on to the next level. It starts at a root node and explores all nodes at the first level, then moves on\n\n\n\n\ud83d\udcdd Final Answer:\n Breadth-first search (BFS) is an algorithm used to find the shortest path between two nodes in a graph. It works by exploring all the neighboring nodes of the current node, then moving on to the next level of",
+        "isUser": false,
+        "timestamp": "2025-05-17 19:24:11.309000+00:00",
+        "isStreaming": false
+      }
+    ],
+    "createdAt": "2025-05-17 19:22:29.936000+00:00",
+    "updatedAt": "2025-05-17 19:28:12.207000+00:00"
+  },
+  {
+    "id": "1747510168523",
+    "title": "create a navbar",
+    "messages": [
+      {
+        "id": "1747510190816",
+        "content": "create a navbar",
+        "isUser": true,
+        "timestamp": "2025-05-17 19:29:50.816000+00:00",
+        "isStreaming": null
+      },
+      {
+        "id": "1747510191143",
+        "content": "### Problem StatementCreate a navbar in HTML, CSS, JavaScript. The navbar should have the following features:1. The navbar is fixed at the top of the page when scrolling down and remains visible to the user.### Problem StatementCreate a navbar in HTML, CSS, JavaScript. The navbar should have the following features:1. The navbar is fixed at the top of the page when scrolling down and remains visible to the user.",
+        "isUser": false,
+        "timestamp": "2025-05-17 19:29:51.143000+00:00",
+        "isStreaming": false
+      },
+      {
+        "id": "1747510296472",
+        "content": "give me the code for the navbar\n",
+        "isUser": true,
+        "timestamp": "2025-05-17 19:31:36.472000+00:00",
+        "isStreaming": null
+      },
+      {
+        "id": "1747510296826",
+        "content": "### Problem:* **Description**: Write a program that outputs the following navbar HTML/XML code to standard output:```html<nav> <div class=\"logo\"> <a href=\"/home\" title### Problem:* **Description**: Write a program that outputs the following navbar HTML/XML code to standard output:```html<nav> <div class=\"logo\"> <a href=\"/home\" title",
+        "isUser": false,
+        "timestamp": "2025-05-17 19:31:36.825000+00:00",
+        "isStreaming": false
+      }
+    ],
+    "createdAt": "2025-05-17 19:29:28.523000+00:00",
+    "updatedAt": "2025-05-17 19:32:59.426000+00:00"
+  }
+]

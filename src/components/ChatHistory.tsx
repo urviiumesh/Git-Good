@@ -1,7 +1,13 @@
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare } from 'lucide-react';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
+import { cn } from '@/lib/utils';
 
 type ConversationItem = {
   id: string;
@@ -53,6 +59,28 @@ export const ChatHistory: React.FC<ChatHistoryProps> = ({
   onSelectConversation = () => {}, 
   activeConversationId 
 }) => {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  
+  // Check if sidebar is collapsed from localStorage
+  useEffect(() => {
+    const checkSidebarState = () => {
+      const storedCollapseState = localStorage.getItem('sidebar-collapsed');
+      if (storedCollapseState) {
+        setIsSidebarCollapsed(JSON.parse(storedCollapseState));
+      }
+    };
+    
+    // Check on load
+    checkSidebarState();
+    
+    // Listen for storage events to detect changes
+    window.addEventListener('storage', checkSidebarState);
+    
+    return () => {
+      window.removeEventListener('storage', checkSidebarState);
+    };
+  }, []);
+
   // Format date to be more readable
   const formatDate = (date: Date): string => {
     const today = new Date();
@@ -68,33 +96,80 @@ export const ChatHistory: React.FC<ChatHistoryProps> = ({
     }
   };
 
+  const renderConversationButton = (conversation: ConversationItem) => {
+    const isActive = activeConversationId === conversation.id;
+    
+    const button = (
+      <button
+        key={conversation.id}
+        onClick={() => onSelectConversation(conversation.id)}
+        className={cn(
+          "w-full text-left rounded-md transition-all duration-300 ease-in-out flex items-start",
+          "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+          isSidebarCollapsed ? "justify-center py-3 px-1" : "justify-start py-2.5 px-3",
+          isActive ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""
+        )}
+      >
+        <MessageSquare 
+          size={isSidebarCollapsed ? 18 : 16} 
+          className={cn(
+            "flex-shrink-0 transition-all duration-300",
+            isSidebarCollapsed ? "mx-auto" : "mt-0.5 mr-3"
+          )} 
+        />
+        
+        <div className={cn(
+          "flex-1 min-w-0 overflow-hidden transition-all duration-300",
+          isSidebarCollapsed ? "w-0 opacity-0" : "w-auto opacity-100"
+        )}>
+          <div className="flex justify-between items-center">
+            <h3 className="text-sm font-medium truncate">{conversation.title}</h3>
+            <span className="text-xs text-muted-foreground ml-2 shrink-0">
+              {formatDate(conversation.date)}
+            </span>
+          </div>
+          <p className="text-xs text-muted-foreground truncate mt-1">
+            {conversation.preview}
+          </p>
+        </div>
+      </button>
+    );
+
+    return isSidebarCollapsed ? (
+      <TooltipProvider key={conversation.id} delayDuration={300}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {button}
+          </TooltipTrigger>
+          <TooltipContent side="right" align="start" className="max-w-xs p-3">
+            <div className="space-y-1">
+              <div className="font-medium">{conversation.title}</div>
+              <div className="text-xs text-muted-foreground">{formatDate(conversation.date)}</div>
+              <div className="text-xs">{conversation.preview}</div>
+            </div>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    ) : button;
+  };
+
   return (
     <ScrollArea className="h-[calc(100vh-200px)]">
-      <div className="px-2 py-4">
-        <h2 className="text-sm font-medium mb-4 px-2">Recent Conversations</h2>
+      <div className="px-2 py-2">
+        {!isSidebarCollapsed && (
+          <h2 className={cn(
+            "text-sm font-medium mb-4 px-2 transition-opacity duration-300",
+            isSidebarCollapsed ? "opacity-0" : "opacity-100"
+          )}>
+            Recent Conversations
+          </h2>
+        )}
         
         <div className="space-y-1">
           {mockConversations.map((conversation) => (
-            <button
-              key={conversation.id}
-              onClick={() => onSelectConversation(conversation.id)}
-              className={`w-full text-left px-3 py-2.5 rounded-md transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-start group ${
-                activeConversationId === conversation.id ? 'bg-sidebar-accent text-sidebar-accent-foreground' : ''
-              }`}
-            >
-              <MessageSquare size={16} className="mt-0.5 mr-3 flex-shrink-0" />
-              <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-sm font-medium truncate">{conversation.title}</h3>
-                  <span className="text-xs text-muted-foreground ml-2">
-                    {formatDate(conversation.date)}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground truncate mt-1">
-                  {conversation.preview}
-                </p>
-              </div>
-            </button>
+            <div key={conversation.id}>
+              {renderConversationButton(conversation)}
+            </div>
           ))}
         </div>
       </div>

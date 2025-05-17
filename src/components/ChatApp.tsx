@@ -1,17 +1,36 @@
-
-import React, { useState } from 'react';
-import { PlusCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { PlusCircle, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChatInterface } from '@/components/ChatInterface';
 import { ChatHistory } from '@/components/ChatHistory';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { ThemeProvider } from '@/providers/ThemeProvider';
+import { cn } from '@/lib/utils';
+
+const COLLAPSED_WIDTH = 'w-16'; // 64px
+const EXPANDED_WIDTH = 'w-72 lg:w-80';
 
 const ChatApp = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [activeConversationId, setActiveConversationId] = useState<string | undefined>(undefined);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Check local storage for sidebar state on load
+  useEffect(() => {
+    const storedCollapseState = localStorage.getItem('sidebar-collapsed');
+    if (storedCollapseState) {
+      setIsSidebarCollapsed(JSON.parse(storedCollapseState));
+    }
+  }, []);
+
+  // Toggle sidebar collapsed state
+  const toggleSidebar = () => {
+    const newState = !isSidebarCollapsed;
+    setIsSidebarCollapsed(newState);
+    localStorage.setItem('sidebar-collapsed', JSON.stringify(newState));
+    // Trigger storage event for other components to detect change
+    window.dispatchEvent(new Event('storage'));
+  };
 
   const handleNewChat = () => {
     setActiveConversationId(undefined);
@@ -36,21 +55,7 @@ const ChatApp = () => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="mr-4"
           >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            >
-              <line x1="4" x2="20" y1="12" y2="12"></line>
-              <line x1="4" x2="20" y1="6" y2="6"></line>
-              <line x1="4" x2="20" y1="18" y2="18"></line>
-            </svg>
+            <Menu className="h-5 w-5" />
           </Button>
           <h1 className="text-xl font-semibold">EdgeGPT</h1>
           <div className="ml-auto">
@@ -58,40 +63,70 @@ const ChatApp = () => {
           </div>
         </div>
 
-        {/* Sidebar - desktop is always visible, mobile is conditional */}
-        <div 
-          className={`${isMobileMenuOpen ? 'fixed inset-0 z-50 block' : 'hidden'} md:relative md:block md:w-72 lg:w-80 border-r border-sidebar-border bg-sidebar text-sidebar-foreground`}
-        >
-          <div className="p-4 flex flex-col h-full">
-            <div className="hidden md:flex items-center justify-between mb-6">
-              <h1 className="text-xl font-semibold">EdgeGPT</h1>
-              <ThemeToggle />
-            </div>
-            
-            <Button 
-              className="mb-6 w-full" 
-              size="sm" 
-              onClick={handleNewChat}
-            >
-              <PlusCircle className="mr-2 h-4 w-4" />
-              New Chat
-            </Button>
-            
-            <ChatHistory 
-              onSelectConversation={handleSelectConversation} 
-              activeConversationId={activeConversationId} 
-            />
-            
-            <div className="mt-auto pt-4 border-t border-sidebar-border">
-              <div className="flex items-center p-2">
-                <div className="h-8 w-8 rounded-full bg-sidebar-accent/20 flex items-center justify-center text-sidebar-foreground">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                </div>
-                <div className="ml-3">
-                  <p className="text-sm font-medium">Admin User</p>
-                  <p className="text-xs text-muted-foreground">Premium Plan</p>
-                </div>
+        {/* Sidebar - desktop collapsed/expanded state, mobile is conditional */}
+        <div className="relative">
+          <div 
+            className={cn(
+              "transition-all duration-300 ease-in-out",
+              isMobileMenuOpen ? 'fixed inset-0 z-50 block' : 'hidden',
+              'md:relative md:block',
+              isSidebarCollapsed ? COLLAPSED_WIDTH : EXPANDED_WIDTH,
+              'border-r border-sidebar-border bg-sidebar text-sidebar-foreground h-screen overflow-hidden'
+            )}
+          >
+            <div className={cn(
+              'flex flex-col h-full',
+              isSidebarCollapsed ? 'items-center px-2 py-4 gap-2' : 'p-4'
+            )}>
+              {/* Logo and theme toggle */}
+              <div className={cn(
+                'mb-6 flex items-center w-full',
+                isSidebarCollapsed ? 'flex-col gap-2 mb-2' : 'justify-between'
+              )}>
+                {!isSidebarCollapsed ? (
+                  <h1 className="text-xl font-semibold transition-opacity duration-300">EdgeGPT</h1>
+                ) : (
+                  <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold mb-1">
+                    E
+                  </div>
+                )}
+                <ThemeToggle />
               </div>
+              {/* New Chat button */}
+              <Button 
+                className={cn(
+                  'transition-all duration-300 ease-in-out mb-6',
+                  isSidebarCollapsed ? 'rounded-full p-0 h-10 w-10 flex items-center justify-center mb-2' : 'w-full'
+                )}
+                size={isSidebarCollapsed ? 'icon' : 'sm'}
+                onClick={handleNewChat}
+                title="New Chat"
+              >
+                <PlusCircle className={cn('h-5 w-5', isSidebarCollapsed ? '' : 'mr-2')} />
+                <span className={cn(
+                  'transition-opacity duration-300', 
+                  isSidebarCollapsed ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100'
+                )}>
+                  New Chat
+                </span>
+              </Button>
+              {/* Chat history */}
+              <div className="flex-1 w-full flex flex-col">
+                <ChatHistory 
+                  onSelectConversation={handleSelectConversation} 
+                  activeConversationId={activeConversationId} 
+                />
+              </div>
+              {/* Desktop sidebar toggle button, vertically centered and inside sidebar */}
+              <button 
+                onClick={toggleSidebar}
+                className={cn(
+                  'absolute hidden md:flex items-center justify-center h-7 w-7 rounded-full bg-primary text-primary-foreground shadow-md z-20 hover:scale-110 transition-transform border-2 border-sidebar top-1/2 right-2 -translate-y-1/2',
+                )}
+                aria-label="Toggle sidebar"
+              >
+                {isSidebarCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+              </button>
             </div>
           </div>
         </div>

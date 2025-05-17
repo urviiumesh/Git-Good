@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Icons } from '@/components/ui/icons';
 import { useToast } from '@/hooks/use-toast';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useAuth } from '@/providers/AuthProvider';
 
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -29,6 +30,7 @@ type SignupFormData = z.infer<typeof signupSchema>;
 export const Signup = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { signup } = useAuth();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const {
@@ -44,13 +46,12 @@ export const Signup = () => {
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
     try {
-      // TODO: Implement actual signup logic here
-      console.log('Signup data:', data);
+      await signup(data.name, data.email, data.password);
       toast({
         title: "Account created",
         description: "Your account has been created successfully.",
       });
-      navigate('/auth/login');
+      navigate('/');
     } catch (error) {
       toast({
         title: "Signup failed",

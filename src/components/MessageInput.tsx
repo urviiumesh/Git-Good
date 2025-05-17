@@ -1,9 +1,17 @@
 import React, { useState, useRef, RefObject } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Send, MicOff, Mic, Settings, Sparkles } from 'lucide-react';
+import { Send, MicOff, Mic, Settings, Sparkles, Trash2, ListOrdered, BrainCircuit } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuCheckboxItem
+} from "@/components/ui/dropdown-menu";
 
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
@@ -19,6 +27,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const [input, setInput] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const defaultInputRef = useRef<HTMLInputElement>(null);
+  
+  // AI options state
+  const [selfDestructing, setSelfDestructing] = useState(false);
+  const [sequentialThinking, setSequentialThinking] = useState(false);
   
   // Use provided inputRef or fallback to local defaultInputRef
   const resolvedInputRef = inputRef || defaultInputRef;
@@ -78,22 +90,42 @@ export const MessageInput: React.FC<MessageInputProps> = ({
       />
       
       <div className="flex gap-1 sm:gap-1.5">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="flex-shrink-0 bg-transparent h-8 w-8 sm:h-9 sm:w-9"
-              >
-                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="top">
-              <p>AI Options</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <DropdownMenu>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="flex-shrink-0 bg-transparent h-8 w-8 sm:h-9 sm:w-9"
+                  >
+                    <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <p>AI Options</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuCheckboxItem
+              checked={selfDestructing}
+              onCheckedChange={setSelfDestructing}
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              <span>Self-destructing</span>
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={sequentialThinking}
+              onCheckedChange={setSequentialThinking}
+            >
+              <BrainCircuit className="h-4 w-4 mr-2" />
+              <span>Sequential thinking</span>
+            </DropdownMenuCheckboxItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         
         <Button 
           onClick={handleSendMessage} 

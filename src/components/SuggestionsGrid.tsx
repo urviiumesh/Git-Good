@@ -13,12 +13,12 @@ export const SuggestionsGrid: React.FC<SuggestionsGridProps> = ({
 }) => {
   return (
     <div className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto px-2">
-      <div className="mb-3 sm:mb-4 mt-1 text-center">
+      {/* <div className="mb-3 sm:mb-4 mt-1 text-center">
         <h3 className="text-base sm:text-lg font-medium text-foreground mb-1">Try asking about</h3>
         <p className="text-xs sm:text-sm text-muted-foreground">
           Select from popular questions or type your own
         </p>
-      </div>
+      </div> */}
       
       <div className={cn(
         "grid gap-2 sm:gap-3",

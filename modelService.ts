@@ -82,6 +82,7 @@ export const generateStreamingResponse = async (
     console.log("Starting to process the stream");
     
     let buffer = '';
+    let hasReceivedFirstToken = false;
     
     try {
       while (true) {
@@ -102,10 +103,34 @@ export const generateStreamingResponse = async (
         const chunk = decoder.decode(value, { stream: true });
         if (chunk) {
           console.log(`Received chunk (${chunk.length} bytes)`);
-          buffer += chunk;
           
-          // Send the new chunk directly to the UI
-          onStream(chunk, false);
+          // Process the SSE format
+          const lines = chunk.split('\n\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.substring(6); // Remove 'data: ' prefix
+              
+              // Skip empty data or [DONE] marker
+              if (data === '' || data === '[DONE]') {
+                if (data === '[DONE]') {
+                  console.log("Received [DONE] marker");
+                  onStream("", true);
+                }
+                continue;
+              }
+              
+              // Handle first token specially to ensure it's displayed
+              if (!hasReceivedFirstToken) {
+                console.log("Received first token");
+                hasReceivedFirstToken = true;
+              }
+              
+              buffer += data;
+              
+              // Send the chunk to client
+              onStream(data, false);
+            }
+          }
         }
       }
     } catch (streamError) {
@@ -187,5 +212,38 @@ export const getCurrentModel = async (): Promise<{ currentModel: ModelType }> =>
   } catch (error) {
     console.error('Error getting current model:', error);
     return { currentModel: 'text' };
+  }
+};
+
+/**
+ * Switch between text and code models
+ * @param modelType The type of model to switch to ('text' or 'code')
+ * @returns A promise that resolves to a success message or error
+ */
+export const switchModel = async (modelType: ModelType): Promise<{ message: string }> => {
+  try {
+    console.log(`Switching to ${modelType} model`);
+    
+    const response = await fetch(`${API_BASE_URL}/switch-model`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model_type: modelType,
+      }),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `API error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    console.log(`Model switched successfully: ${data.message}`);
+    return data;
+  } catch (error) {
+    console.error('Error switching model:', error);
+    throw error;
   }
 }; 

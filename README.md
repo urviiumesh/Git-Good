@@ -9,6 +9,36 @@ EdgeGPT is a chat application that uses local LLM models for inference. This pro
 - Responsive UI for desktop and mobile devices
 - Streaming responses for real-time interaction
 
+## Codebase Structure
+
+The project is structured as follows:
+
+```
+EdgeGPT/
+├── src/                   # Frontend React code
+│   ├── components/        # UI components
+│   ├── utils/             # Utility functions
+│   ├── hooks/             # React hooks
+│   ├── lib/               # Library code
+│   ├── providers/         # React context providers
+│   └── pages/             # App pages
+├── public/                # Static assets
+├── models/                # Local model files (not included in repo)
+├── chat_history/          # Saved chat conversations
+├── run.py                 # FastAPI backend server
+├── package.json           # Node.js dependencies
+└── README.md              # Project documentation
+```
+
+## Clean-up Information
+
+The codebase has been cleaned up to:
+- Remove duplicate files (ChatInterface.tsx, modelService.ts)
+- Remove Python cache files (__pycache__/)
+- Remove temporary installation files (get-pip.py)
+- Update .gitignore to exclude appropriate files
+- Organize the codebase structure for better maintainability
+
 ## Requirements
 
 ### Frontend

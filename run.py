@@ -15,11 +15,16 @@ from datetime import datetime
 # MODEL LOADING
 # ----------------------------
 text_llm_path = r"models/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
-# Check if the file exists
-if not os.path.exists(text_llm_path):
-    raise FileNotFoundError(f"Model file not found: {text_llm_path}")
+code_llm_path = r"models/codellama-7b-instruct.Q4_K_M.gguf"
 
-print(f"Loading model from: {text_llm_path}")
+# Check if the model files exist
+if not os.path.exists(text_llm_path):
+    raise FileNotFoundError(f"Text model file not found: {text_llm_path}")
+if not os.path.exists(code_llm_path):
+    raise FileNotFoundError(f"Code model file not found: {code_llm_path}")
+
+print(f"Text model path: {text_llm_path}")
+print(f"Code model path: {code_llm_path}")
 
 # Model configuration - reduce context size for faster responses
 model_config = {
@@ -111,6 +116,11 @@ def generate_stream(prompt, max_tokens, temperature, top_k, top_p, repeat_penalt
             # Generate tokens one at a time 
             total_tokens = 0
             generated_text = ""
+            batch_size = 5  # Send tokens in small batches to reduce HTTP requests
+            token_batch = ""
+            
+            # Send an initial empty data message to establish connection
+            yield "data: \n\n"
             
             while total_tokens < max_tokens:
                 # Get a single token
@@ -134,13 +144,22 @@ def generate_stream(prompt, max_tokens, temperature, top_k, top_p, repeat_penalt
                 
                 # Add to generated text
                 generated_text += token
+                token_batch += token
                 total_tokens += 1
                 
-                # Send token to client with proper SSE format
-                yield f"data: {token}\n\n"
+                # Send tokens in batches to reduce HTTP requests
+                if total_tokens % batch_size == 0 or total_tokens == max_tokens:
+                    # Send token batch to client with proper SSE format
+                    yield f"data: {token_batch}\n\n"
+                    token_batch = ""
                 
-                # Add a small delay to help with client-side rendering
-                time.sleep(0.01)
+                # Small delay to prevent overwhelming the client
+                # but significantly reduced to improve responsiveness
+                time.sleep(0.001)
+            
+            # Send any remaining tokens in the batch
+            if token_batch:
+                yield f"data: {token_batch}\n\n"
             
             # End of generation
             print(f"Generation complete: {total_tokens} tokens")
@@ -168,7 +187,18 @@ def generate_text(request: PromptRequest):
     if current_model_type == "text":
         prompt = f"{request.prompt} Your answer should be no more or no less than {request.word_count} words. Answer: "
     else:  # code model
-        prompt = f"{request.prompt}\n The output should only be in elaborate and accurate code \n"
+        prompt = f"""Write code to solve the following problem: {request.prompt}
+
+Important: Output code in markdown format with triple backticks and language identifier like this:
+```language
+// code here
+```
+
+For example, for JavaScript use ```javascript, for Python use ```python, etc.
+When explaining code, keep explanations brief and outside the code block.
+For multiple code files, use separate code blocks with appropriate language tags.
+Focus on clean, well-formatted, production-ready code.
+"""
     
     estimated_tokens = int(request.word_count * 1.5)
     
@@ -203,7 +233,18 @@ def generate_text_stream(request: PromptRequest):
     if current_model_type == "text":
         prompt = f"{request.prompt} Your answer should be no more or no less than {request.word_count} words. Answer: "
     else:  # code model
-        prompt = f"{request.prompt}\n The output should only be in elaborate and accurate code \n"
+        prompt = f"""Write code to solve the following problem: {request.prompt}
+
+Important: Output code in markdown format with triple backticks and language identifier like this:
+```language
+// code here
+```
+
+For example, for JavaScript use ```javascript, for Python use ```python, etc.
+When explaining code, keep explanations brief and outside the code block.
+For multiple code files, use separate code blocks with appropriate language tags.
+Focus on clean, well-formatted, production-ready code.
+"""
     
     estimated_tokens = int(request.word_count * 1.5)
 
@@ -488,5 +529,48 @@ class ModelSwitchRequest(BaseModel):
 
 @app.post("/switch-model")
 def switch_model(request: ModelSwitchRequest):
-    # Since we only have the text model, just return a message
-    return {"message": "Only text model is available currently"} 
+    global llm, current_model_type
+    
+    model_type = request.model_type.lower()
+    
+    # Validate model type
+    if model_type not in ["text", "code"]:
+        return JSONResponse(
+            status_code=400, 
+            content={"error": f"Invalid model type: {model_type}. Supported types are 'text' and 'code'."}
+        )
+    
+    # If already using the requested model, just return
+    if model_type == current_model_type:
+        return {"message": f"Already using {model_type} model."}
+    
+    print(f"Switching from {current_model_type} model to {model_type} model")
+    
+    try:
+        with model_lock:
+            # Choose the appropriate model path
+            if model_type == "text":
+                model_path = text_llm_path
+            else:  # code model
+                model_path = r"models/codellama-7b-instruct.Q4_K_M.gguf"
+            
+            # Load the new model
+            print(f"Loading {model_type} model from: {model_path}")
+            llm = Llama(
+                model_path=model_path,
+                **model_config
+            )
+            
+            # Update the current model type
+            current_model_type = model_type
+            
+            print(f"Successfully switched to {model_type} model.")
+            return {"message": f"Successfully switched to {model_type} model."}
+            
+    except Exception as e:
+        print(f"Error switching model: {e}")
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={"error": f"Failed to switch model: {str(e)}"}
+        ) 

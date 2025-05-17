@@ -112,6 +112,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
       
       // Debug variable to track tokens
       let tokenCount = 0;
+      let lastUpdateTime = Date.now();
+      const UPDATE_INTERVAL = 500; // Update storage only every 500ms
       
       // Use streaming response
       await generateStreamingResponse(
@@ -144,12 +146,17 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
                 
                 console.log(`Updated message content, new length: ${updated[messageIndex].content.length}`);
                 
-                // Update in storage
-                updateMessageInConversation(
-                  currentConversationId, 
-                  botResponseId, 
-                  { content: updated[messageIndex].content }
-                );
+                // Only update in storage periodically to reduce API calls
+                const currentTime = Date.now();
+                if (currentTime - lastUpdateTime >= UPDATE_INTERVAL || isDone) {
+                  lastUpdateTime = currentTime;
+                  // Update in storage less frequently
+                  updateMessageInConversation(
+                    currentConversationId, 
+                    botResponseId, 
+                    { content: updated[messageIndex].content }
+                  );
+                }
               } else {
                 console.warn(`Message with ID ${botResponseId} not found!`);
               }

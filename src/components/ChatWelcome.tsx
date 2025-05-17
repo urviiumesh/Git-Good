@@ -33,9 +33,9 @@ export const ChatWelcome: React.FC = () => {
       
       <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-1.5 sm:gap-2 w-full max-w-xs sm:max-w-sm md:max-w-md">
         {/* <FeatureBadge icon="💻" text="Code Assistant" /> */}
-        <FeatureBadge icon="🔒" text="Security Analysis" />
+        {/* <FeatureBadge icon="🔒" text="Security Analysis" />
         <FeatureBadge icon="📊" text="Data Insights" />
-        <FeatureBadge icon="📚" text="Documentation" />
+        <FeatureBadge icon="📚" text="Documentation" /> */}
       </div>
     </div>
   );

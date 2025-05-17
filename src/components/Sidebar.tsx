@@ -65,7 +65,7 @@ export function Sidebar({ className }: SidebarProps) {
   ];
 
   return (
-    <div className={cn("pb-12 border-r bg-background w-64 sm:w-64 flex-shrink-0 flex flex-col h-screen", isCollapsed ? "w-16 sm:w-16" : "w-64 sm:w-64", className)}>
+    <div className={cn("flex flex-col h-screen border-r bg-background flex-shrink-0", isCollapsed ? "w-16 sm:w-16" : "w-64 sm:w-64", className)}>
       <div className="flex items-center py-2 px-3">
         <Button
           variant="ghost"
@@ -80,7 +80,7 @@ export function Sidebar({ className }: SidebarProps) {
         )}
       </div>
       
-      <div className="px-3 py-4 flex-grow">
+      <div className="px-3 py-4 flex-grow overflow-y-auto pb-16">
         <div className="space-y-1">
           {navItems.map((item) => (
             <Link
@@ -100,8 +100,8 @@ export function Sidebar({ className }: SidebarProps) {
         </div>
       </div>
       
-      {/* Account Profile Box */}
-      <div className="mt-auto border-t pt-2 px-2">
+      {/* Account Profile Box - fixed at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 border-t bg-background pt-2 px-2 pb-2">
         <div className="flex items-center gap-2 p-2 rounded-lg bg-accent/20 hover:bg-accent/30 transition-colors">
           <Avatar className="h-10 w-10">
             <AvatarImage src="/avatars/01.png" alt="User" />

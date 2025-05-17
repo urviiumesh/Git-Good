@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChatHeader } from './src/components/ChatHeader';
-import { MessageList } from './src/components/MessageList';
-import { MessageInput } from './src/components/MessageInput';
-import { SuggestionsGrid } from './src/components/SuggestionsGrid';
-import { generateStreamingResponse } from './src/utils/modelService';
-import { useToast } from './src/components/ui/use-toast';
-import { 
-  getConversation, 
-  addMessageToConversation,
-  updateMessageInConversation,
-  createConversation,
-  type ChatMessage
-} from './src/utils/storageService';
-import { cn } from '@/lib/utils';
+import { ChatHeader } from '@/components/ChatHeader';
+import { MessageList } from '@/components/MessageList';
+import { MessageInput } from '@/components/MessageInput';
+import { SuggestionsGrid } from '@/components/SuggestionsGrid';
+import { generateStreamingResponse } from '@/utils/modelService';
+import { useToast } from '@/components/ui/use-toast';
+
+type Message = {
+  id: string;
+  content: string;
+  isUser: boolean;
+  timestamp: Date;
+  isStreaming?: boolean;
+};
 
 const exampleSuggestions = [
   "What are the best practices for secure API design?",
@@ -22,7 +22,7 @@ const exampleSuggestions = [
 ];
 
 interface ChatInterfaceProps {
-  activeConversationId?: string | null;
+  activeConversationId?: string;
 }
 
 // Add formatText function since it's not in messageUtils.ts
@@ -31,33 +31,29 @@ const formatText = (text: string): string => {
 };
 
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversationId }) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
-  // Load messages when switching conversations
+  // Reset messages when switching conversations
   useEffect(() => {
-    const loadConversation = async () => {
-      setIsLoading(true);
-      if (activeConversationId) {
-        const conversation = await getConversation(activeConversationId);
-        if (conversation) {
-          setMessages(conversation.messages);
-        } else {
-          // If conversation doesn't exist, create a new one
-          const newConvo = await createConversation();
-          setMessages([]);
+    // If we have an active conversation, we'd load its messages from the server
+    // For now, we'll just simulate this with a basic reset and dummy message
+    if (activeConversationId) {
+      // This would be replaced with an API call to get conversation history
+      setMessages([
+        {
+          id: 'prev-1',
+          content: `This is a continuation of conversation ${activeConversationId}. How can I help you further?`,
+          isUser: false,
+          timestamp: new Date(),
         }
-      } else {
-        // No active conversation
-        setMessages([]);
-      }
-      setIsLoading(false);
-    };
-    
-    loadConversation();
+      ]);
+    } else {
+      // New conversation
+      setMessages([]);
+    }
   }, [activeConversationId]);
 
   // Focus input on load
@@ -70,32 +66,22 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
     
     if (!inputText.trim()) return;
     
-    // Make sure we have an active conversation
-    let currentConversationId = activeConversationId;
-    if (!currentConversationId) {
-      const newConvo = await createConversation();
-      currentConversationId = newConvo.id;
-    }
-    
     // Add user message
-    const userMessage: ChatMessage = {
+    const userMessage: Message = {
       id: Date.now().toString(),
       content: inputText,
       isUser: true,
       timestamp: new Date(),
     };
     
-    // Add to state and storage
     setMessages(prev => [...prev, userMessage]);
-    await addMessageToConversation(currentConversationId, userMessage);
-    
     setIsProcessing(true);
     
     // Create placeholder for streaming bot response
     const botResponseId = (Date.now() + 1).toString();
     console.log(`Creating bot response with ID: ${botResponseId}`);
     
-    const initialBotResponse: ChatMessage = {
+    const initialBotResponse: Message = {
       id: botResponseId,
       content: "",
       isUser: false,
@@ -103,9 +89,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
       isStreaming: true,
     };
     
-    // Add to state and storage
     setMessages(prev => [...prev, initialBotResponse]);
-    await addMessageToConversation(currentConversationId, initialBotResponse);
     
     try {
       console.log("Fetching streaming response from model...");
@@ -116,9 +100,9 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
       // Use streaming response
       await generateStreamingResponse(
         inputText,
-        async (token, isDone) => {
+        (token, isDone) => {
           if (!isDone) {
-            // Only skip if the token is EXACTLY "Stream started" and nothing else
+            // Skip "Stream started" message
             if (token === "Stream started") {
               console.log("Skipping 'Stream started' message");
               return;
@@ -134,22 +118,17 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
               const messageIndex = updated.findIndex(msg => msg.id === botResponseId);
               
               if (messageIndex !== -1) {
-                // Format the token but don't filter out any content
+                // Remove "Stream started" from token if it's the first token
                 const formattedToken = formatText(token);
+                const cleanToken = messageIndex === 0 && formattedToken.startsWith("Stream started") 
+                  ? formattedToken.substring("Stream started".length) 
+                  : formattedToken;
                 
                 updated[messageIndex] = {
                   ...updated[messageIndex],
-                  content: updated[messageIndex].content + formattedToken,
+                  content: updated[messageIndex].content + cleanToken,
                 };
-                
                 console.log(`Updated message content, new length: ${updated[messageIndex].content.length}`);
-                
-                // Update in storage
-                updateMessageInConversation(
-                  currentConversationId, 
-                  botResponseId, 
-                  { content: updated[messageIndex].content }
-                );
               } else {
                 console.warn(`Message with ID ${botResponseId} not found!`);
               }
@@ -174,25 +153,18 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
               const messageIndex = updated.findIndex(msg => msg.id === botResponseId);
               
               if (messageIndex !== -1) {
+                // Remove any "Stream started" text from the beginning of the content
                 const content = updated[messageIndex].content;
+                const cleanContent = content.startsWith("Stream started") 
+                  ? content.substring("Stream started".length) 
+                  : content;
                 
                 updated[messageIndex] = {
                   ...updated[messageIndex],
-                  content: content,
+                  content: cleanContent,
                   isStreaming: false,
                 };
-                
                 console.log(`Final message length: ${updated[messageIndex].content.length}`);
-                
-                // Update in storage
-                updateMessageInConversation(
-                  currentConversationId, 
-                  botResponseId, 
-                  { 
-                    content: content,
-                    isStreaming: false 
-                  }
-                );
               } else {
                 console.warn(`Unable to find message with ID ${botResponseId} to mark as complete`);
               }
@@ -222,22 +194,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
         const messageIndex = updated.findIndex(msg => msg.id === botResponseId);
         
         if (messageIndex !== -1) {
-          const errorMsg = `Sorry, I encountered an error: ${error.message}. Please ensure the local model server is running.`;
           updated[messageIndex] = {
             ...updated[messageIndex],
-            content: errorMsg,
+            content: `Sorry, I encountered an error: ${error.message}. Please ensure the local model server is running.`,
             isStreaming: false,
           };
-          
-          // Update in storage
-          updateMessageInConversation(
-            currentConversationId, 
-            botResponseId, 
-            { 
-              content: errorMsg,
-              isStreaming: false 
-            }
-          );
         }
         
         return updated;
@@ -252,29 +213,25 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
   };
 
   return (
-    <div className={cn(
-      "flex flex-col h-full w-full relative",
-      "px-2 sm:px-4 lg:px-6 py-4",
-      "bg-gradient-to-b from-background to-background/90"
-    )}>
-      <div className="hidden lg:block">
+    <div className="flex flex-col h-full w-full overflow-hidden">
+      <div className="flex-shrink-0 px-3 sm:px-6 pt-3 sm:pt-5">
         <ChatHeader />
       </div>
       
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <MessageList messages={messages} isProcessing={isProcessing} />
+      <div className="flex-grow overflow-hidden relative px-3 sm:px-6">
+        <div className="absolute inset-0 overflow-y-auto py-3">
+          <MessageList messages={messages} isProcessing={isProcessing} />
 
-        {messages.length === 0 && (
-          <div className="flex-1 flex items-center justify-center">
+          {messages.length === 0 && (
             <SuggestionsGrid 
               suggestions={exampleSuggestions}
               onSuggestionClick={handleSuggestionClick}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      <div className="mt-2 sm:mt-4 pb-2">
+      <div className="flex-shrink-0 mt-auto py-3 sm:py-4">
         <MessageInput 
           onSendMessage={handleSendMessage} 
           isProcessing={isProcessing}

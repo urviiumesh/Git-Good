@@ -9,7 +9,7 @@ export type StreamingCallback = (token: string, isDone: boolean) => void;
 const API_BASE_URL = 'http://localhost:8000';
 
 // Default configuration
-const DEFAULT_WORD_COUNT = 300;
+const DEFAULT_WORD_COUNT = 50;
 const TIMEOUT_MS = 60000; // 60 seconds timeout
 
 /**

@@ -24,10 +24,11 @@ dist-ssr
 *.sw?
 
 # Models directory
-models/
+models/*.gguf
+models/venv/
 
 # Chat history
-chat_history/
+chat_history/*.json
 
 # Python cache
 __pycache__/
@@ -52,3 +53,6 @@ var/
 
 # pip
 get-pip.py
+
+# Reference servers
+reference-servers/

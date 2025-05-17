@@ -5,6 +5,8 @@ export type StreamingCallback = (token: string, isDone: boolean) => void;
 
 // API base URL - assumes FastAPI server is running locally on port 8000
 const API_BASE_URL = 'http://localhost:8000';
+// MCP API URL - assumes MCP server is running locally on port 8001
+const MCP_API_URL = 'http://localhost:8001';
 
 // Default configuration
 const DEFAULT_WORD_COUNT = 300; // Increased from 50 for more detailed responses
@@ -47,11 +49,11 @@ export const generateStreamingResponse = async (
     console.log("Sending request for streaming response");
     
     // Use the fetch API to get a streaming response
-    const response = await fetch(`${API_BASE_URL}/generate`, {
+    const response = await fetch(`${API_BASE_URL}/generate_stream`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'text/plain',
+        'Accept': 'text/event-stream',
       },
       body: JSON.stringify({
         prompt,
@@ -159,6 +161,250 @@ export const generateStreamingResponse = async (
     
     console.error('Error: Failed to connect to local model service. Please ensure the model server is running.');
     onStream(`Sorry, I encountered an error: ${error.message}. Please ensure the model server is running.`, true);
+  }
+};
+
+/**
+ * Generate MCP content with streaming support
+ * @param resourceUri The MCP resource URI to fetch
+ * @param onStream Callback that receives each token as it arrives
+ * @returns A promise that resolves when the stream is complete
+ */
+export const streamMcpContent = async (
+  resourceUri: string,
+  onStream: StreamingCallback
+): Promise<void> => {
+  // AbortController for timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => {
+    console.log("MCP content request timed out");
+    controller.abort();
+  }, TIMEOUT_MS);
+
+  try {
+    console.log(`Sending streaming request to fetch MCP content: ${resourceUri}`);
+    
+    const response = await fetch(`${MCP_API_URL}/read-resource`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        uri: resourceUri,
+      }),
+      signal: controller.signal,
+    });
+    
+    // Clear the timeout since we got a response
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`MCP API error: ${response.status} - ${errorText}`);
+    }
+
+    if (!response.body) {
+      throw new Error('MCP response body is not available');
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done) {
+          console.log("MCP stream complete");
+          onStream("", true);
+          // Ensure we properly close the reader
+          await reader.cancel();
+          break;
+        }
+        
+        // Decode and process this chunk
+        const chunk = decoder.decode(value, { stream: true });
+        if (chunk) {
+          console.log(`Received MCP chunk (${chunk.length} bytes)`);
+          onStream(chunk, false);
+        }
+      }
+    } catch (streamError) {
+      console.error("Error reading MCP stream:", streamError);
+      onStream(`Error reading MCP stream: ${streamError.message}`, true);
+      // Ensure we close the reader on error
+      await reader.cancel();
+    }
+  } catch (error) {
+    // Clear timeout if there was an error
+    clearTimeout(timeoutId);
+    
+    console.error('Error in MCP streaming:', error);
+    
+    if (error.name === 'AbortError') {
+      onStream('The MCP request timed out. Please try again later.', true);
+      return;
+    }
+    
+    onStream(`Sorry, I encountered an error getting MCP content: ${error.message}`, true);
+  }
+};
+
+/**
+ * Send a streaming request to an MCP server tool
+ * @param toolName The name of the MCP tool to call
+ * @param toolArgs The arguments to pass to the tool
+ * @param onStream Callback that receives each token as it arrives
+ * @returns A promise that resolves when the stream is complete
+ */
+export const callMcpToolWithStreaming = async (
+  toolName: string,
+  toolArgs: Record<string, any>,
+  onStream: StreamingCallback
+): Promise<void> => {
+  // AbortController for timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => {
+    console.log("MCP tool request timed out");
+    controller.abort();
+  }, TIMEOUT_MS);
+
+  try {
+    console.log(`Sending streaming request to MCP tool: ${toolName}`);
+    
+    const response = await fetch(`${MCP_API_URL}/call-tool`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'text/event-stream',
+      },
+      body: JSON.stringify({
+        params: {
+          name: toolName,
+          arguments: toolArgs
+        }
+      }),
+      signal: controller.signal,
+    });
+    
+    // Clear the timeout since we got a response
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`MCP tool API error: ${response.status} - ${errorText}`);
+    }
+
+    if (!response.body) {
+      throw new Error('MCP tool response body is not available');
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    
+    let buffer = '';
+    let lastEventDelimiter = 0;
+    let isDoneSignalReceived = false;
+    
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done || isDoneSignalReceived) {
+          // If there's any remaining text in the buffer, send it
+          if (buffer) {
+            try {
+              const contentData = JSON.parse(buffer);
+              if (contentData.content && contentData.content[0] && contentData.content[0].text) {
+                onStream(contentData.content[0].text, false);
+              }
+            } catch (e) {
+              onStream(buffer, false);
+            }
+          }
+          
+          console.log("MCP tool stream complete");
+          onStream("", true);
+          // Ensure we properly close the reader
+          await reader.cancel();
+          break;
+        }
+        
+        // Decode and process this chunk
+        const chunk = decoder.decode(value, { stream: true });
+        if (chunk) {
+          console.log(`Received MCP tool chunk (${chunk.length} bytes)`);
+          
+          // Add to buffer
+          buffer += chunk;
+          
+          // Process any complete events in the buffer
+          const events = [];
+          let startPos = 0;
+          
+          // Look for event delimiters
+          while (true) {
+            const dataPrefix = buffer.indexOf('data: ', startPos);
+            if (dataPrefix === -1) break;
+            
+            const eventEnd = buffer.indexOf('\n\n', dataPrefix);
+            if (eventEnd === -1) break;
+            
+            // Extract the event data
+            const eventData = buffer.substring(dataPrefix + 6, eventEnd).trim();
+            if (eventData && eventData !== '[DONE]') {
+              try {
+                const jsonData = JSON.parse(eventData);
+                if (jsonData.content && jsonData.content[0] && jsonData.content[0].text) {
+                  onStream(jsonData.content[0].text, false);
+                }
+              } catch (e) {
+                // If parsing fails, just send the raw data
+                onStream(eventData, false);
+              }
+            } else if (eventData === '[DONE]') {
+              console.log("Received MCP [DONE] marker");
+              isDoneSignalReceived = true;
+              // Explicitly mark as done
+              onStream("", true);
+              break;
+            }
+            
+            startPos = eventEnd + 2;
+            lastEventDelimiter = startPos;
+          }
+          
+          // Trim the buffer to only contain unprocessed data
+          if (lastEventDelimiter > 0) {
+            buffer = buffer.substring(lastEventDelimiter);
+            lastEventDelimiter = 0;
+          }
+          
+          // Also check for a completion indication in the raw chunk
+          if (chunk.includes('"done": true') || chunk.includes('"done":true')) {
+            console.log("Found completion indicator in MCP response");
+            isDoneSignalReceived = true;
+          }
+        }
+      }
+    } catch (streamError) {
+      console.error("Error reading MCP tool stream:", streamError);
+      onStream(`Error reading MCP tool stream: ${streamError.message}`, true);
+      // Ensure we close the reader on error
+      await reader.cancel();
+    }
+  } catch (error) {
+    // Clear timeout if there was an error
+    clearTimeout(timeoutId);
+    
+    console.error('Error in MCP tool streaming:', error);
+    
+    if (error.name === 'AbortError') {
+      onStream('The MCP tool request timed out. Please try again later.', true);
+      return;
+    }
+    
+    onStream(`Sorry, I encountered an error with the MCP tool: ${error.message}`, true);
   }
 };
 

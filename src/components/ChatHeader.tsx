@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatusIndicator } from './StatusIndicator';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Share2, MoreHorizontal, Copy, DownloadCloud, MessageSquare, Code, SwitchCamera } from 'lucide-react';
+import { Share2, MoreHorizontal, Copy, DownloadCloud, MessageSquare, Code, SwitchCamera, BrainCircuit } from 'lucide-react';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -14,6 +14,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { getCurrentModel, switchModel, type ModelType } from '../utils/modelService';
 import { useToast } from '@/hooks/use-toast';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { useServerStatus } from '@/hooks/useServerStatus';
 
 interface ChatHeaderProps {
   title?: string;
@@ -26,6 +27,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
   const { toast } = useToast();
+  const { mcpStatus, checkMcpStatus } = useServerStatus();
 
   // Fetch current model on component mount
   useEffect(() => {
@@ -97,6 +99,16 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   };
 
   const modelDisplayName = currentModel === 'text' ? 'Mistral-7B (Text)' : 'CodeLlama-7B (Code)';
+  
+  // Convert our status type to the existing component status type
+  const convertStatus = (mcpStatus: 'online' | 'offline' | 'checking'): 'online' | 'offline' | 'loading' => {
+    switch (mcpStatus) {
+      case 'online': return 'online';
+      case 'offline': return 'offline';
+      case 'checking': return 'loading';
+      default: return 'offline';
+    }
+  };
 
   return (
     <div className="flex items-center justify-between pt-1 pb-4">
@@ -121,6 +133,29 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
       </div>
 
       <div className="flex items-center space-x-3">
+        {/* MCP Server Status */}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div 
+                className="flex items-center gap-1 cursor-pointer" 
+                onClick={checkMcpStatus}
+              >
+                <BrainCircuit className="h-4 w-4 text-muted-foreground" />
+                <StatusIndicator 
+                  status={convertStatus(mcpStatus)} 
+                  label="MCP Server" 
+                  className="ml-1" 
+                />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              <p>Sequential Thinking Server: {mcpStatus}</p>
+              <p className="text-xs text-muted-foreground">(Click to refresh)</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        
         <div className="hidden md:flex items-center mr-2">
           <span className="text-xs text-muted-foreground mr-2">Model:</span>
           <ToggleGroup type="single" value={currentModel} onValueChange={handleModelChange} disabled={isLoading}>

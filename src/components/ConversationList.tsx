@@ -109,6 +109,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
   isCollapsed
 }) => {
   const timeAgo = formatDistanceToNow(conversation.updatedAt, { addSuffix: true });
+  const isSelfDestruct = Boolean(conversation.selfDestruct);
   
   if (isCollapsed) {
     return (
@@ -118,15 +119,18 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             <div 
               className={cn(
                 "flex justify-center py-3 mx-1 my-1 rounded-md cursor-pointer",
-                isActive ? "bg-primary/10 text-primary" : "hover:bg-muted/80 text-muted-foreground"
+                isActive ? "bg-primary/10 text-primary" : "hover:bg-muted/80 text-muted-foreground",
+                isSelfDestruct && "border-l-2 border-destructive"
               )}
               onClick={onSelect}
             >
-              <MessageSquare className="h-5 w-5" />
+              <MessageSquare className={cn("h-5 w-5", isSelfDestruct && "text-destructive")} />
             </div>
           </TooltipTrigger>
           <TooltipContent side="right" className="max-w-[200px]">
-            <p className="font-medium">{conversation.title}</p>
+            <p className={cn("font-medium", isSelfDestruct && "text-destructive")}>
+              {conversation.title} {isSelfDestruct && "(Self-Destruct)"}
+            </p>
             <p className="text-xs text-muted-foreground">{timeAgo}</p>
           </TooltipContent>
         </Tooltip>
@@ -138,14 +142,17 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     <div 
       className={cn(
         "group flex items-center justify-between rounded-lg p-3 text-sm mb-1 cursor-pointer",
-        isActive ? "bg-muted text-foreground" : "hover:bg-muted/50 text-muted-foreground"
+        isActive ? "bg-muted text-foreground" : "hover:bg-muted/50 text-muted-foreground",
+        isSelfDestruct && "border-l-2 border-destructive"
       )}
       onClick={onSelect}
     >
       <div className="flex items-center overflow-hidden">
-        <MessageSquare className="h-4 w-4 mr-2 flex-shrink-0" />
+        <MessageSquare className={cn("h-4 w-4 mr-2 flex-shrink-0", isSelfDestruct && "text-destructive")} />
         <div className="truncate">
-          <div className="font-medium truncate">{conversation.title}</div>
+          <div className={cn("font-medium truncate", isSelfDestruct && "text-destructive")}>
+            {conversation.title} {isSelfDestruct && "(Self-Destruct)"}
+          </div>
           <div className="text-xs text-muted-foreground">
             {timeAgo}
           </div>

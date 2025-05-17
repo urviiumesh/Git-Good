@@ -6,6 +6,9 @@ import { SuggestionsGrid } from './SuggestionsGrid';
 import { generateStreamingResponse, testStreamingConnection } from '@/utils/modelService';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
+import { useServerStatus } from '../hooks/useServerStatus';
+import { AlertTriangle, BrainCircuit, FastForward } from 'lucide-react';
+import { checkSequentialThinkingServer, resetSequentialThinkingServer, forceCompleteThinking } from '../utils/serverUtils';
 
 type Message = {
   id: string;
@@ -29,8 +32,11 @@ interface ChatInterfaceProps {
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversationId }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const { toast } = useToast();
+  const { mcpStatus, checkMcpStatus } = useServerStatus();
+  const [sequentialThinkingEnabled, setSequentialThinkingEnabled] = useState(false);
+  const [thinkingTooLong, setThinkingTooLong] = useState(false);
 
   // Reset messages when switching conversations
   useEffect(() => {
@@ -266,9 +272,87 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
     }
   };
 
+  // Show warning if sequential thinking is enabled but server is offline
+  const showServerWarning = sequentialThinkingEnabled && mcpStatus === 'offline';
+  
+  // Add handler for sequential thinking state
+  const handleSequentialThinkingChange = (enabled: boolean) => {
+    setSequentialThinkingEnabled(enabled);
+  };
+
+  // Add a useEffect hook to detect when thinking is taking too long
+  useEffect(() => {
+    let thinkingTimer: NodeJS.Timeout | null = null;
+    
+    if (isProcessing && sequentialThinkingEnabled && mcpStatus === 'online') {
+      // Set a timer to check if thinking is taking too long (30 seconds)
+      thinkingTimer = setTimeout(() => {
+        setThinkingTooLong(true);
+      }, 30000); // 30 seconds
+    } else {
+      setThinkingTooLong(false);
+    }
+    
+    return () => {
+      if (thinkingTimer) {
+        clearTimeout(thinkingTimer);
+      }
+    };
+  }, [isProcessing, sequentialThinkingEnabled, mcpStatus]);
+
   return (
     <div className="flex flex-col h-full max-w-4xl w-full mx-auto p-4 md:p-6">
       <ChatHeader />
+      
+      {showServerWarning && (
+        <div className="bg-amber-100 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-400 px-4 py-2 mb-4 rounded-md flex items-center justify-between">
+          <div className="flex items-center">
+            <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0" />
+            <p className="text-sm">Sequential thinking server is offline but the feature is enabled. Responses will fall back to standard mode.</p>
+          </div>
+          <Button 
+            variant="outline"
+            size="sm"
+            className="ml-4 bg-amber-200/50 dark:bg-amber-800/50 border-amber-300 dark:border-amber-700"
+            onClick={() => checkMcpStatus()}
+          >
+            Refresh Status
+          </Button>
+        </div>
+      )}
+      
+      {sequentialThinkingEnabled && mcpStatus === 'online' && isProcessing && thinkingTooLong && (
+        <div className="bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-400 px-4 py-2 mb-4 rounded-md flex items-center justify-between">
+          <div className="flex items-center">
+            <BrainCircuit className="h-5 w-5 mr-2 flex-shrink-0" />
+            <p className="text-sm">Sequential thinking seems to be taking a while. The process might be stuck.</p>
+          </div>
+          <Button 
+            variant="outline"
+            size="sm"
+            className="ml-4 bg-blue-200/50 dark:bg-blue-800/50 border-blue-300 dark:border-blue-700"
+            onClick={async () => {
+              const success = await forceCompleteThinking();
+              if (success) {
+                toast({
+                  title: 'Thinking Completed',
+                  description: 'Sequential thinking process was manually completed.',
+                });
+                setThinkingTooLong(false);
+              } else {
+                toast({
+                  title: 'Error',
+                  description: 'Failed to force completion. Please try resetting the server.',
+                  variant: 'destructive',
+                });
+              }
+            }}
+          >
+            <FastForward className="h-4 w-4 mr-1" />
+            Force Complete
+          </Button>
+        </div>
+      )}
       
       <div className="flex justify-between items-center mb-2">
         <div></div>

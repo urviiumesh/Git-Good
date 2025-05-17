@@ -162,3 +162,322 @@
 .bot-message {
   @apply bg-muted mr-auto;
 }
+
+/* Enhancing styles for code blocks */
+.prism-code-container {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  font-variant-ligatures: none;
+}
+
+.code-highlight-content {
+  background-color: #1a1d23;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.prism-code-container pre,
+.prism-code-container code {
+  white-space: pre-wrap !important;
+  overflow-x: auto;
+  max-width: 100%;
+  min-width: 100%;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  tab-size: 2;
+}
+
+/* Override Prism styles to ensure line breaks are preserved */
+.prism-code-container [class*="language-"] {
+  white-space: pre-wrap !important;
+  word-spacing: normal;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  letter-spacing: normal !important;
+}
+
+/* Line number styling */
+.prism-code-container .linenumber,
+.prism-code-container .react-syntax-highlighter-line-number {
+  min-width: 2.5em !important;
+  padding-right: 1em !important;
+  text-align: right !important;
+  user-select: none;
+  opacity: 0.5;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  margin-right: 0.8em !important;
+}
+
+/* Add horizontal scrolling for long lines */
+.prism-code-container > div {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Reset spacing and display for all code elements */
+.prism-code-container * {
+  letter-spacing: normal !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Fix spacing between tokens */
+.prism-code-container span,
+.prism-code-container span[class*="token"] {
+  display: inline !important;
+  letter-spacing: normal !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Fix display for line containers */
+.react-syntax-highlighter-line {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  display: flex !important;
+}
+
+/* Fix spacing between adjacent spans */
+.prism-code-container span + span {
+  margin-left: 0 !important;
+}
+
+/* Basic styling for plain text code display */
+pre.font-mono {
+  color: #e1e1e1;
+  line-height: 1.5;
+}
+
+/* Remove any remaining HTML-specific styling */
+.html-code,
+.tag-open,
+.tag-close,
+.tag-name,
+.attr-name,
+.attr-value,
+.comment {
+  all: unset !important;
+  display: inline !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+
+/* Inline code styling */
+code.inline-code {
+  background-color: rgba(135, 131, 120, 0.15);
+  color: #EB5757;
+  padding: 0.2em 0.4em;
+  margin: 0 0.2em;
+  border-radius: 0.3em;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.9em;
+  white-space: break-spaces;
+  word-break: break-word;
+  border: 1px solid rgba(135, 131, 120, 0.1);
+}
+
+.dark code.inline-code {
+  background-color: rgba(135, 131, 120, 0.3);
+  color: #FF7575;
+  border-color: rgba(135, 131, 120, 0.2);
+}
+
+/* Better syntax highlighting tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #8b949e;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.string,
+.token.attr-value {
+  color: #a5d6ff;
+}
+
+.token.punctuation,
+.token.operator {
+  color: #79c0ff;
+}
+
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #ff7b72;
+}
+
+.token.selector,
+.token.attr-name,
+.token.char,
+.token.builtin,
+.token.url,
+.token.inserted {
+  color: #7ee787;
+}
+
+.token.entity {
+  color: #c9d1d9;
+  background-color: #282c34;
+}
+
+.token.atrule,
+.token.attr-name,
+.token.keyword {
+  color: #ff7b72;
+}
+
+.token.function,
+.token.class-name {
+  color: #c9d1d9;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #fa75a6;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Add subtle animation when copying */
+@keyframes copy-success {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.copy-success {
+  animation: copy-success 0.3s ease-in-out;
+}
+
+/* Add these styles for inline links */
+a.inline-link {
+  color: #3b82f6;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+a.inline-link:hover {
+  color: #60a5fa;
+  border-bottom-color: rgba(96, 165, 250, 0.6);
+}
+
+.dark a.inline-link {
+  color: #60a5fa;
+  border-bottom-color: rgba(96, 165, 250, 0.3);
+}
+
+.dark a.inline-link:hover {
+  color: #93c5fd;
+  border-bottom-color: rgba(147, 197, 253, 0.6);
+}
+
+/* Enhance styling for inline formatting */
+strong {
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+  color: rgba(156, 163, 175, 0.9);
+}
+
+/* Add animation for the copy success action */
+@keyframes copy-success {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.copy-success-active .animate-copy-success {
+  animation: copy-success 0.3s ease-in-out;
+}
+
+/* Enhance JSX/TSX syntax highlighting */
+.language-jsx .token.punctuation,
+.language-tsx .token.punctuation {
+  color: #7dd3fc !important;
+}
+
+.language-jsx .token.tag,
+.language-tsx .token.tag,
+.language-jsx .token.tag .token.punctuation,
+.language-tsx .token.tag .token.punctuation {
+  color: #e879f9 !important;
+}
+
+.language-jsx .token.attr-name,
+.language-tsx .token.attr-name {
+  color: #a78bfa !important;
+}
+
+.language-jsx .token.attr-value,
+.language-tsx .token.attr-value,
+.language-jsx .token.attr-value .token.punctuation,
+.language-tsx .token.attr-value .token.punctuation {
+  color: #4ade80 !important;
+}
+
+.language-jsx .token.keyword,
+.language-tsx .token.keyword {
+  color: #f472b6 !important;
+}
+
+/* Enhanced CSS syntax highlighting */
+.language-css .token.selector,
+.language-scss .token.selector {
+  color: #fca5a5 !important;
+}
+
+.language-css .token.property,
+.language-scss .token.property {
+  color: #93c5fd !important;
+}
+
+.language-css .token.function,
+.language-scss .token.function {
+  color: #fdba74 !important;
+}
+
+.language-css .token.important,
+.language-scss .token.important {
+  color: #f472b6 !important;
+}
+
+/* Style for double-click hint */
+.code-double-click-hint {
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.group:hover .code-double-click-hint {
+  opacity: 0.5;
+}

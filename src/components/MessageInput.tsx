@@ -12,32 +12,48 @@ import {
   DropdownMenuSeparator,
   DropdownMenuCheckboxItem
 } from "@/components/ui/dropdown-menu";
+import { StatusIndicator } from "@/components/ui/status-indicator";
+import { useServerStatus } from "@/hooks/useServerStatus";
 
 interface MessageInputProps {
-  onSendMessage: (message: string) => void;
+  onSendMessage: (message: string, options: { sequentialThinking: boolean, selfDestruct: boolean }) => void;
   isProcessing: boolean;
-  inputRef?: RefObject<HTMLInputElement>;
+  inputRef?: React.RefObject<HTMLTextAreaElement>;
+  onSequentialThinkingChange?: (enabled: boolean) => void;
+  onSelfDestructChange?: (enabled: boolean) => void;
+  selfDestructEnabled?: boolean;
 }
 
 export const MessageInput: React.FC<MessageInputProps> = ({ 
   onSendMessage, 
   isProcessing,
-  inputRef
+  inputRef,
+  onSequentialThinkingChange,
+  onSelfDestructChange,
+  selfDestructEnabled = false
 }) => {
   const [input, setInput] = useState('');
   const [isRecording, setIsRecording] = useState(false);
-  const defaultInputRef = useRef<HTMLInputElement>(null);
+  const defaultInputRef = useRef<HTMLTextAreaElement>(null);
   
   // AI options state
-  const [selfDestructing, setSelfDestructing] = useState(false);
+  const [selfDestructing, setSelfDestructing] = useState(selfDestructEnabled);
   const [sequentialThinking, setSequentialThinking] = useState(false);
+  
+  // Update self-destructing state when prop changes
+  React.useEffect(() => {
+    setSelfDestructing(selfDestructEnabled);
+  }, [selfDestructEnabled]);
+  
+  // Server status state
+  const { mcpStatus, checkMcpStatus } = useServerStatus();
   
   // Use provided inputRef or fallback to local defaultInputRef
   const resolvedInputRef = inputRef || defaultInputRef;
 
   const handleSendMessage = () => {
     if (!input.trim()) return;
-    onSendMessage(input);
+    onSendMessage(input, { sequentialThinking, selfDestruct: selfDestructing });
     setInput('');
   };
 
@@ -45,50 +61,77 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     setIsRecording(!isRecording);
     // In a real implementation, this would trigger voice recognition
   };
+  
+  const handleSequentialThinkingToggle = async (checked: boolean) => {
+    // If enabling, check server status first
+    if (checked && mcpStatus !== 'online') {
+      // Re-check server status
+      const isRunning = await checkMcpStatus();
+      if (!isRunning) {
+        alert("Sequential thinking server is not available. Please start the server first.");
+        return;
+      }
+    }
+    
+    setSequentialThinking(checked);
+    if (onSequentialThinkingChange) {
+      onSequentialThinkingChange(checked);
+    }
+  };
+  
+  const handleSelfDestructToggle = (checked: boolean) => {
+    setSelfDestructing(checked);
+    if (onSelfDestructChange) {
+      onSelfDestructChange(checked);
+    }
+  };
 
   return (
     <div className={cn(
-      "flex gap-2 items-center",
-      "p-2 px-3 sm:p-3 rounded-lg",
-      "bg-background dark:bg-background/80",
-      "border border-border/50 dark:border-border/30",
-      "shadow-sm backdrop-blur-sm",
-      "mx-2 sm:mx-4"
+      "relative flex flex-col w-full max-w-4xl mx-auto", 
+      "border rounded-lg shadow-sm",
+      selfDestructing && "border-destructive/30 shadow-destructive/20",
+      "bg-background"
     )}>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleVoiceToggle}
-              className={cn(
-                "flex-shrink-0 rounded-full h-8 w-8 sm:h-9 sm:w-9",
-                isRecording && "text-destructive bg-destructive/10"
-              )}
-            >
-              {isRecording ? <Mic className="h-4 w-4 sm:h-5 sm:w-5" /> : <MicOff className="h-4 w-4 sm:h-5 sm:w-5" />}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="top">
-            <p>{isRecording ? "Stop recording" : "Start voice input"}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      
-      <Input
-        placeholder="Ask me anything..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-        className={cn(
-          "flex-1 border-none focus-visible:ring-0 focus-visible:ring-offset-0",
-          "bg-transparent placeholder:text-muted-foreground/60",
-          "h-8 sm:h-10"
-        )}
-        ref={resolvedInputRef}
-      />
-      
+      <div className="px-3 py-2 w-full">
+        <div className="relative flex items-center w-full">
+          <textarea
+            ref={resolvedInputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
+            disabled={isProcessing}
+            placeholder="Ask me anything..."
+            className={cn(
+              "w-full px-3 py-2 min-h-[48px] max-h-[300px] resize-y pr-10",
+              "font-normal text-base placeholder:text-muted-foreground",
+              "bg-transparent shadow-none outline-none border-none",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              selfDestructing && !isProcessing && "text-destructive"
+            )}
+          />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleVoiceToggle}
+                  className={cn(
+                    "flex-shrink-0 rounded-full h-8 w-8 sm:h-9 sm:w-9",
+                    isRecording && "text-destructive bg-destructive/10"
+                  )}
+                >
+                  {isRecording ? <Mic className="h-4 w-4 sm:h-5 sm:w-5" /> : <MicOff className="h-4 w-4 sm:h-5 sm:w-5" />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <p>{isRecording ? "Stop recording" : "Start voice input"}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+      </div>
       <div className="flex gap-1 sm:gap-1.5">
         <DropdownMenu>
           <TooltipProvider>
@@ -98,7 +141,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   <Button
                     variant="outline"
                     size="icon"
-                    className="flex-shrink-0 bg-transparent h-8 w-8 sm:h-9 sm:w-9"
+                    className={cn(
+                      "flex-shrink-0 bg-transparent h-8 w-8 sm:h-9 sm:w-9",
+                      selfDestructing && "text-destructive border-destructive/30"
+                    )}
                   >
                     <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
@@ -109,21 +155,43 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-64">
             <DropdownMenuCheckboxItem
               checked={selfDestructing}
-              onCheckedChange={setSelfDestructing}
+              onCheckedChange={handleSelfDestructToggle}
+              className={selfDestructing ? "text-destructive" : ""}
             >
               <Trash2 className="h-4 w-4 mr-2" />
-              <span>Self-destructing</span>
+              <span>Self-destructing conversation</span>
             </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-              checked={sequentialThinking}
-              onCheckedChange={setSequentialThinking}
-            >
-              <BrainCircuit className="h-4 w-4 mr-2" />
-              <span>Sequential thinking</span>
-            </DropdownMenuCheckboxItem>
+            
+            <div className="flex items-center justify-between px-2 py-1.5">
+              <DropdownMenuCheckboxItem
+                checked={sequentialThinking}
+                onCheckedChange={handleSequentialThinkingToggle}
+                className="flex-1"
+              >
+                <BrainCircuit className="h-4 w-4 mr-2" />
+                <span>Sequential thinking</span>
+              </DropdownMenuCheckboxItem>
+              
+              <StatusIndicator 
+                status={mcpStatus} 
+                name="MCP" 
+                className="ml-2"
+              />
+            </div>
+            
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start text-xs" 
+                onClick={() => checkMcpStatus()}
+              >
+                Refresh server status
+              </Button>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         
@@ -132,7 +200,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           disabled={!input.trim() || isProcessing}
           className={cn(
             "flex-shrink-0 h-8 sm:h-10 px-3 sm:px-4",
-            isProcessing ? "bg-muted text-muted-foreground" : "bg-primary text-primary-foreground"
+            isProcessing ? "bg-muted text-muted-foreground" : "bg-primary text-primary-foreground",
+            selfDestructing && !isProcessing && "bg-destructive hover:bg-destructive/90"
           )}
         >
           <Send size={16} className="sm:mr-2" />

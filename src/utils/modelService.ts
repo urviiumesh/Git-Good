@@ -13,6 +13,18 @@ const DEFAULT_WORD_COUNT = 50;
 const TIMEOUT_MS = 60000; // 60 seconds timeout
 
 /**
+ * Clean the generated response by removing word count markers
+ * @param text The text to clean
+ * @returns The cleaned text
+ */
+const cleanResponse = (text: string): string => {
+  // Remove patterns like "150 words." or "Answer: 250 words." etc.
+  return text.replace(/^\s*(Answer:\s*)?(\d+\s*words\.?)\s*/gi, '')
+    .replace(/\n+(\d+\s*words\.?)\s*/gi, '\n')
+    .trim();
+};
+
+/**
  * Generate a response from the local model with streaming support
  * @param prompt The user prompt to send to the model
  * @param onStream Callback that receives each token as it arrives
@@ -45,7 +57,7 @@ export const generateStreamingResponse = async (
   // Create request body once
   const requestBody = JSON.stringify({
     prompt: prompt,
-    word_count: wordCount,
+    max_tokens: wordCount * 5, // Use max_tokens instead of word_count (approx. 5 tokens per word)
   });
   
   // Try EventSource for streaming if available
@@ -68,6 +80,9 @@ export const generateStreamingResponse = async (
       onStream('Request timed out. The model is taking too long to respond.', true);
     }, TIMEOUT_MS);
     
+    // Track accumulated text to clean word count markers
+    let accumulatedText = '';
+    
     eventSource.onopen = (event) => {
       console.log('SSE connection opened', event);
     };
@@ -88,7 +103,14 @@ export const generateStreamingResponse = async (
         eventSource.close();
         onStream('', true);
       } else {
-        onStream(data, false);
+        // Add to accumulated text
+        accumulatedText += data;
+        
+        // Check for word count markers in accumulated text to clean them
+        const cleanedToken = cleanResponse(data);
+        if (cleanedToken) {
+          onStream(cleanedToken, false);
+        }
       }
     };
     
@@ -152,6 +174,7 @@ export const generateStreamingResponse = async (
       // Process the stream
       let buffer = '';
       let lastEventDelimiter = 0;
+      let accumulatedText = ''; // Track accumulated text for cleaning
       
       while (true) {
         const { value, done } = await reader.read();
@@ -193,8 +216,12 @@ export const generateStreamingResponse = async (
               onStream('', true);
               return; // Exit early
             } else {
-              // Regular token
-              onStream(data, false);
+              // Add to accumulated text and clean
+              accumulatedText += data;
+              const cleanedToken = cleanResponse(data);
+              if (cleanedToken) {
+                onStream(cleanedToken, false);
+              }
             }
           } else {
             console.log('Received non-data SSE event:', eventData);

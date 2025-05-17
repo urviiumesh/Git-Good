@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -64,7 +63,24 @@ export const CodeGeneration: React.FC = () => {
     { label: "Go", value: "go" },
     { label: "Ruby", value: "ruby" },
     { label: "Rust", value: "rust" },
-    { label: "SQL", value: "sql" }
+    { label: "SQL", value: "sql" },
+    { label: "C++", value: "cpp" },
+    { label: "C", value: "c" },
+    { label: "Swift", value: "swift" },
+    { label: "Kotlin", value: "kotlin" },
+    { label: "Scala", value: "scala" },
+    { label: "Objective-C", value: "objectivec" },
+    { label: "Dart", value: "dart" },
+    { label: "R", value: "r" },
+    { label: "Shell/Bash", value: "bash" },
+    { label: "PowerShell", value: "powershell" },
+    { label: "Haskell", value: "haskell" },
+    { label: "Perl", value: "perl" },
+    { label: "Clojure", value: "clojure" },
+    { label: "HTML", value: "html" },
+    { label: "CSS", value: "css" },
+    { label: "YAML", value: "yaml" },
+    { label: "Dockerfile", value: "dockerfile" }
   ];
 
   const handleGenerate = () => {

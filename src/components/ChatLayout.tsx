@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ConversationList } from './ConversationList';
 import { ChatInterface } from '../../ChatInterface';
 import { 
-  getConversations, 
+  getAllConversations, 
   getActiveConversationId, 
   setActiveConversation, 
   createConversation, 
@@ -28,7 +28,7 @@ export const ChatLayout: React.FC = () => {
       try {
         setIsLoading(true);
         
-        const loadedConversations = await getConversations();
+        const loadedConversations = await getAllConversations();
         const activeId = await getActiveConversationId();
         
         setConversations(loadedConversations);
@@ -78,6 +78,38 @@ export const ChatLayout: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   
+  // Listen for self-destruct conversation deletion events
+  useEffect(() => {
+    const handleConversationsUpdated = (event: CustomEvent) => {
+      if (event.detail && event.detail.conversations) {
+        console.log('Received updated conversations list:', event.detail.conversations);
+        setConversations(event.detail.conversations);
+        
+        // If the active conversation was deleted, select a new one
+        if (activeConversationId && !event.detail.conversations.some(c => c.id === activeConversationId)) {
+          const remainingConvos = event.detail.conversations;
+          
+          if (remainingConvos.length > 0) {
+            setActiveConversation(remainingConvos[0].id).then(() => {
+              setActiveConversationId(remainingConvos[0].id);
+            });
+          } else {
+            createConversation().then(newConvo => {
+              setConversations([newConvo]);
+              setActiveConversationId(newConvo.id);
+            });
+          }
+        }
+      }
+    };
+    
+    // Add event listener for custom event
+    window.addEventListener('conversations-updated', handleConversationsUpdated as EventListener);
+    return () => {
+      window.removeEventListener('conversations-updated', handleConversationsUpdated as EventListener);
+    };
+  }, [activeConversationId]);
+  
   // Save sidebar collapsed state to localStorage
   useEffect(() => {
     localStorage.setItem('sidebar-collapsed', JSON.stringify(sidebarCollapsed));
@@ -118,14 +150,16 @@ export const ChatLayout: React.FC = () => {
   const handleDeleteConversation = async (id: string) => {
     try {
       await deleteConversation(id);
-      setConversations(prev => prev.filter(convo => convo.id !== id));
+      
+      // Get fresh list of conversations
+      const updatedConversations = await getAllConversations();
+      setConversations(updatedConversations);
       
       // If we deleted the active conversation, activate another one or create a new one
       if (activeConversationId === id) {
-        const remainingConvos = conversations.filter(convo => convo.id !== id);
-        if (remainingConvos.length > 0) {
-          await setActiveConversation(remainingConvos[0].id);
-          setActiveConversationId(remainingConvos[0].id);
+        if (updatedConversations.length > 0) {
+          await setActiveConversation(updatedConversations[0].id);
+          setActiveConversationId(updatedConversations[0].id);
         } else {
           const newConvo = await createConversation();
           setConversations([newConvo]);

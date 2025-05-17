@@ -33,7 +33,7 @@ const formatText = (text: string): string => {
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversationId }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const { toast } = useToast();
 
   // Reset messages when switching conversations

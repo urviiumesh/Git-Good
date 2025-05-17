@@ -16,6 +16,8 @@ import {
   ChevronRight,
   Sun,
   Moon,
+  Menu,
+  AlignJustify,
   LucideProps,
 } from "lucide-react";
 
@@ -54,4 +56,6 @@ export const Icons = {
   chevronRight: ChevronRight,
   sun: Sun,
   moon: Moon,
+  menu: Menu,
+  alignJustify: AlignJustify,
 }; 

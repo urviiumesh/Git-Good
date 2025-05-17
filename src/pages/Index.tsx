@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '@/components/Sidebar';
-import { Header } from '@/components/Header';
 import { Dashboard } from '@/components/Dashboard';
 import { Chat } from '@/components/Chat';
 import { CodeGeneration } from '@/components/CodeGeneration';
@@ -54,9 +53,8 @@ const Index = () => {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <Sidebar className="hidden md:block" />
+      <Sidebar />
       <div className="flex-1 flex flex-col">
-        <Header />
         <main className="flex-1 p-6">
           {getComponent()}
         </main>

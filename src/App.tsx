@@ -10,43 +10,46 @@ import { Profile } from "./pages/Profile";
 import { AuthProvider } from "./providers/AuthProvider";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Layout } from "./components/Layout";
+import { ThemeProvider } from "./components/theme-provider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/auth/login" element={<Login />} />
-            <Route 
-              path="/" 
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <ChatApp />
-                  </Layout>
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/profile" 
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Profile />
-                  </Layout>
-                </ProtectedRoute>
-              } 
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
+    <ThemeProvider defaultTheme="light" storageKey="theme">
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/auth/login" element={<Login />} />
+              <Route 
+                path="/" 
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <ChatApp />
+                    </Layout>
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/profile" 
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Profile />
+                    </Layout>
+                  </ProtectedRoute>
+                } 
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

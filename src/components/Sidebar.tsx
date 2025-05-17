@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Icons } from '@/components/ui/icons';
 import {
@@ -66,86 +65,101 @@ export function Sidebar({ className }: SidebarProps) {
   ];
 
   return (
-    <div className={cn("pb-12 border-r bg-background", className)}>
-      <div className="space-y-4 py-4">
-        <div className="px-3 py-2">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold tracking-tight">
-              {!isCollapsed && "EdgeGPT"}
-            </h2>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsCollapsed(!isCollapsed)}
-              className="md:hidden"
+    <div className={cn("pb-12 border-r bg-background w-64 sm:w-64 flex-shrink-0 flex flex-col h-screen", isCollapsed ? "w-16 sm:w-16" : "w-64 sm:w-64", className)}>
+      <div className="flex items-center py-2 px-3">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="flex-shrink-0"
+        >
+          <Icons.alignJustify className="h-5 w-5" />
+        </Button>
+        {!isCollapsed && (
+          <h2 className="text-lg font-semibold tracking-tight ml-2">EdgeGPT</h2>
+        )}
+      </div>
+      
+      <div className="px-3 py-4 flex-grow">
+        <div className="space-y-1">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
+                location.pathname === item.href
+                  ? "bg-accent text-accent-foreground"
+                  : "transparent"
+              )}
             >
-              {isCollapsed ? <Icons.chevronRight /> : <Icons.chevronLeft />}
-            </Button>
-          </div>
-          <div className="space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
-                  location.pathname === item.href
-                    ? "bg-accent text-accent-foreground"
-                    : "transparent"
-                )}
-              >
-                <item.icon className="h-4 w-4" />
-                {!isCollapsed && <span>{item.title}</span>}
-              </Link>
-            ))}
-          </div>
+              <item.icon className="h-4 w-4" />
+              {!isCollapsed && <span>{item.title}</span>}
+            </Link>
+          ))}
         </div>
       </div>
-      <div className="mt-auto px-3">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-start gap-2">
-              <Avatar className="h-8 w-8">
-                <AvatarImage src="/avatars/01.png" alt="User" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              {!isCollapsed && (
-                <div className="flex flex-col items-start text-sm">
-                  <span className="font-medium">John Doe</span>
-                  <span className="text-xs text-muted-foreground">john@example.com</span>
-                </div>
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end" forceMount>
-            <DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">John Doe</p>
-                <p className="text-xs leading-none text-muted-foreground">
-                  john@example.com
-                </p>
+      
+      {/* Account Profile Box */}
+      <div className="mt-auto border-t pt-2 px-2">
+        <div className="flex items-center gap-2 p-2 rounded-lg bg-accent/20 hover:bg-accent/30 transition-colors">
+          <Avatar className="h-10 w-10">
+            <AvatarImage src="/avatars/01.png" alt="User" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          
+          {!isCollapsed ? (
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-sm font-medium truncate">John Doe</span>
+              <span className="text-xs text-muted-foreground truncate">john@example.com</span>
+              <div className="flex gap-1 mt-1">
+                <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" asChild>
+                  <Link to="/profile">Profile</Link>
+                </Button>
+                <Button variant="ghost" size="sm" className="h-7 px-2 text-xs text-destructive" onClick={handleLogout}>
+                  <Icons.logOut className="h-3 w-3 mr-1" />
+                  Logout
+                </Button>
               </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link to="/profile" className="cursor-pointer w-full">
-                <Icons.user className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to="/settings" className="cursor-pointer w-full">
-                <Icons.settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-              <Icons.logOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            </div>
+          ) : (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Icons.menu className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">John Doe</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      john@example.com
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/profile" className="cursor-pointer w-full">
+                    <Icons.user className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/settings" className="cursor-pointer w-full">
+                    <Icons.settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                  <Icons.logOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </div>
       </div>
     </div>
   );

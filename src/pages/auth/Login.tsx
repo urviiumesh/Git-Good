@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { GoogleLogin } from '@react-oauth/google';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,7 +23,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const {
@@ -52,6 +53,35 @@ export const Login = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      setIsLoading(true);
+      await loginWithGoogle(credentialResponse.credential);
+      toast({
+        title: "Google login successful",
+        description: "Welcome!",
+      });
+      navigate('/');
+    } catch (error) {
+      toast({
+        title: "Google login failed",
+        description: "There was a problem with Google authentication.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleError = (error: any) => {
+    console.error("Google login error:", error);
+    toast({
+      title: "Google login failed",
+      description: "There was a problem with Google authentication. Please try again.",
+      variant: "destructive",
+    });
   };
 
   return (
@@ -130,7 +160,7 @@ export const Login = () => {
               {isLoading && (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               )}
-              Sign in
+              Sign in with Email
             </Button>
           </form>
         </CardContent>
@@ -141,13 +171,32 @@ export const Login = () => {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Need help?
+                Or continue with
               </span>
             </div>
           </div>
-          <p className="text-center text-sm text-muted-foreground">
-            Contact your system administrator for assistance.
-          </p>
+          
+          <div className="flex flex-col items-center space-y-4">
+            <div className="w-full flex justify-center">
+              <div className="w-full" style={{ maxWidth: '100%' }}>
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleError}
+                  type="standard"
+                  theme="outline"
+                  text="signin_with"
+                  shape="rectangular"
+                  logo_alignment="center"
+                  width="100%"
+                  context="signin"
+                />
+              </div>
+            </div>
+            
+            <p className="text-center text-sm text-muted-foreground">
+              Contact your system administrator for assistance.
+            </p>
+          </div>
         </CardFooter>
       </Card>
     </div>

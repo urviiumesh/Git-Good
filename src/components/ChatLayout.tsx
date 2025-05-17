@@ -14,8 +14,10 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from './ThemeToggle';
 import { UserAccount } from './UserAccount';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/providers/AuthProvider';
 
 export const ChatLayout: React.FC = () => {
+  const { logout } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -173,11 +175,8 @@ export const ChatLayout: React.FC = () => {
   
   // Handle logout
   const handleLogout = () => {
-    // In a real app, this would handle authentication logout
-    console.log('User logged out');
-    localStorage.removeItem('isAuthenticated');
-    // Redirect to login or show notification
-    alert('You have been logged out');
+    // Use the logout function from AuthProvider
+    logout();
   };
   
   // Toggle sidebar collapsed state

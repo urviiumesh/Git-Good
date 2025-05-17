@@ -4,6 +4,7 @@ interface User {
   id: string;
   name: string;
   email: string;
+  authProvider?: 'email' | 'google';
 }
 
 interface AuthContextType {
@@ -11,6 +12,7 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: (credential: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -64,6 +66,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const loginWithGoogle = async (credential: string) => {
+    setIsLoading(true);
+    try {
+      // In a real app, you would send this credential to your backend for verification
+      // For demo purposes, we'll decode the JWT to extract basic user info
+      // Note: This is not secure for production - the token should be verified on the server
+      if (!credential) {
+        throw new Error('No credential received from Google');
+      }
+      
+      // Decode the JWT token
+      const parts = credential.split('.');
+      if (parts.length !== 3) {
+        throw new Error('Invalid token format');
+      }
+      
+      // Base64 decode and parse the payload
+      const payload = JSON.parse(
+        decodeURIComponent(
+          atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'))
+            .split('')
+            .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+            .join('')
+        )
+      );
+      
+      console.log('Google auth payload:', payload);
+      
+      const mockUser: User = {
+        id: payload.sub,
+        name: payload.name || 'Google User',
+        email: payload.email,
+        authProvider: 'google'
+      };
+      
+      // Store user in localStorage
+      localStorage.setItem('user', JSON.stringify(mockUser));
+      setUser(mockUser);
+    } catch (error) {
+      console.error('Error processing Google login:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = () => {
     // Remove user from localStorage
     localStorage.removeItem('user');
@@ -77,6 +125,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isLoading,
         isAuthenticated: !!user,
         login,
+        loginWithGoogle,
         logout,
       }}
     >

@@ -11,20 +11,26 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LogOut, Settings, User, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/providers/AuthProvider';
 
 export interface UserAccountProps {
   isCollapsed?: boolean;
   onLogout: () => void;
 }
 
-// Simulated user data - in a real app this would come from authentication
-const userData = {
-  name: 'Alex Johnson',
-  email: 'alex@example.com',
-  avatarSrc: '', // Empty for now to use fallback
-};
-
 export function UserAccount({ isCollapsed = false, onLogout }: UserAccountProps) {
+  const { user } = useAuth();
+  
+  // Fallback user data in case user is not available
+  const name = user?.name || 'User';
+  const email = user?.email || 'user@example.com';
+  const avatarSrc = ''; // We could add picture URL from Google profile if available
+  
+  // Get initials for avatar fallback
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('');
+  };
+
   if (isCollapsed) {
     return (
       <div className="mt-auto py-4 px-2 border-t border-border">
@@ -32,9 +38,9 @@ export function UserAccount({ isCollapsed = false, onLogout }: UserAccountProps)
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full">
               <Avatar className="h-10 w-10 border border-border/50">
-                <AvatarImage src={userData.avatarSrc} alt={userData.name} />
+                <AvatarImage src={avatarSrc} alt={name} />
                 <AvatarFallback className="bg-primary/10 text-primary font-medium">
-                  {userData.name.split(' ').map(n => n[0]).join('')}
+                  {getInitials(name)}
                 </AvatarFallback>
               </Avatar>
             </Button>
@@ -42,9 +48,9 @@ export function UserAccount({ isCollapsed = false, onLogout }: UserAccountProps)
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">{userData.name}</p>
+                <p className="text-sm font-medium leading-none">{name}</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  {userData.email}
+                  {email}
                 </p>
               </div>
             </DropdownMenuLabel>
@@ -72,15 +78,15 @@ export function UserAccount({ isCollapsed = false, onLogout }: UserAccountProps)
     <div className="mt-auto p-4 border-t border-border">
       <div className="flex items-center space-x-3 rounded-md p-2 transition-colors hover:bg-muted">
         <Avatar className="h-10 w-10 border border-border/50">
-          <AvatarImage src={userData.avatarSrc} alt={userData.name} />
+          <AvatarImage src={avatarSrc} alt={name} />
           <AvatarFallback className="bg-primary/10 text-primary font-medium">
-            {userData.name.split(' ').map(n => n[0]).join('')}
+            {getInitials(name)}
           </AvatarFallback>
         </Avatar>
         
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium leading-none">{userData.name}</p>
-          <p className="text-xs text-muted-foreground truncate">{userData.email}</p>
+          <p className="text-sm font-medium leading-none">{name}</p>
+          <p className="text-xs text-muted-foreground truncate">{email}</p>
         </div>
         
         <DropdownMenu>

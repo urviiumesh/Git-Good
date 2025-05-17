@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { ChatMessage } from './ChatMessage';
 import { ChatWelcome } from './ChatWelcome';
@@ -9,6 +8,7 @@ type Message = {
   content: string;
   isUser: boolean;
   timestamp: Date;
+  isStreaming?: boolean;
 };
 
 interface MessageListProps {
@@ -33,7 +33,7 @@ export const MessageList: React.FC<MessageListProps> = ({ messages, isProcessing
           {messages.map((msg) => (
             <ChatMessage key={msg.id} message={msg} />
           ))}
-          {isProcessing && (
+          {isProcessing && !messages.some(msg => msg.isStreaming) && (
             <div className="flex items-center space-x-2 p-4">
               <StatusIndicator status="loading" showLabel={false} />
               <span className="text-sm">EdgeGPT is thinking...</span>

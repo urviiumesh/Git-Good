@@ -1,5 +1,4 @@
-
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, RefObject } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Send, MicOff, Mic, Settings } from 'lucide-react';
@@ -7,12 +6,20 @@ import { Send, MicOff, Mic, Settings } from 'lucide-react';
 interface MessageInputProps {
   onSendMessage: (message: string) => void;
   isProcessing: boolean;
+  inputRef?: RefObject<HTMLInputElement>;
 }
 
-export const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage, isProcessing }) => {
+export const MessageInput: React.FC<MessageInputProps> = ({ 
+  onSendMessage, 
+  isProcessing,
+  inputRef
+}) => {
   const [input, setInput] = useState('');
   const [isRecording, setIsRecording] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const defaultInputRef = useRef<HTMLInputElement>(null);
+  
+  // Use provided inputRef or fallback to local defaultInputRef
+  const resolvedInputRef = inputRef || defaultInputRef;
 
   const handleSendMessage = () => {
     if (!input.trim()) return;
@@ -42,7 +49,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage, isPro
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
         className="flex-1"
-        ref={inputRef}
+        ref={resolvedInputRef}
       />
       
       <Button 

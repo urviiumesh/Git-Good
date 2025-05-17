@@ -1,13 +1,14 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { CircleUser } from 'lucide-react';
+import { StatusIndicator } from './StatusIndicator';
 
 type Message = {
   id: string;
   content: string;
   isUser: boolean;
   timestamp: Date;
+  isStreaming?: boolean;
 };
 
 interface ChatMessageProps {
@@ -44,6 +45,12 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           )}
         >
           <p className="text-sm md:text-base whitespace-pre-wrap">{message.content}</p>
+          {message.isStreaming && (
+            <div className="flex items-center mt-2">
+              <StatusIndicator status="loading" showLabel={false} />
+              <span className="text-xs text-muted-foreground ml-2">generating...</span>
+            </div>
+          )}
         </div>
         <span className="text-xs text-muted-foreground mt-1 self-start">
           {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

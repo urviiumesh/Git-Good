@@ -3,9 +3,8 @@ import { ChatHeader } from './ChatHeader';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { SuggestionsGrid } from './SuggestionsGrid';
-import { generateStreamingResponse, testStreamingConnection } from '@/utils/modelService';
+import { generateStreamingResponse } from '@/utils/modelService';
 import { useToast } from '@/components/ui/use-toast';
-import { Button } from '@/components/ui/button';
 
 type Message = {
   id: string;
@@ -56,16 +55,6 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-  
-  // Format text by replacing escape sequences with actual line breaks
-  const formatText = (text: string): string => {
-    // Replace escaped newlines with actual line breaks
-    return text
-      .replace(/\\n/g, '\n')
-      .replace(/\\t/g, '\t')
-      .replace(/\\"/g, '"')
-      .replace(/\\'/g, "'");
-  };
 
   const handleSendMessage = async (inputText: string) => {
     console.log("Sending message:", inputText);
@@ -108,6 +97,12 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
         inputText,
         (token, isDone) => {
           if (!isDone) {
+            // Skip "Stream started" message
+            if (token === "Stream started") {
+              console.log("Skipping 'Stream started' message");
+              return;
+            }
+            
             // Increment token counter
             tokenCount++;
             console.log(`Received token #${tokenCount}: "${token}"`);
@@ -118,10 +113,15 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
               const messageIndex = updated.findIndex(msg => msg.id === botResponseId);
               
               if (messageIndex !== -1) {
+                // Remove "Stream started" from token if it's the first token
                 const formattedToken = formatText(token);
+                const cleanToken = messageIndex === 0 && formattedToken.startsWith("Stream started") 
+                  ? formattedToken.substring("Stream started".length) 
+                  : formattedToken;
+                
                 updated[messageIndex] = {
                   ...updated[messageIndex],
-                  content: updated[messageIndex].content + formattedToken,
+                  content: updated[messageIndex].content + cleanToken,
                 };
                 console.log(`Updated message content, new length: ${updated[messageIndex].content.length}`);
               } else {
@@ -148,8 +148,15 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
               const messageIndex = updated.findIndex(msg => msg.id === botResponseId);
               
               if (messageIndex !== -1) {
+                // Remove any "Stream started" text from the beginning of the content
+                const content = updated[messageIndex].content;
+                const cleanContent = content.startsWith("Stream started") 
+                  ? content.substring("Stream started".length) 
+                  : content;
+                
                 updated[messageIndex] = {
                   ...updated[messageIndex],
+                  content: cleanContent,
                   isStreaming: false,
                 };
                 console.log(`Final message length: ${updated[messageIndex].content.length}`);
@@ -164,8 +171,9 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
             setIsProcessing(false);
           }
         },
-        50
+        300
       );
+      
     } catch (error) {
       console.error('Error generating response:', error);
       
@@ -198,89 +206,10 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
   const handleSuggestionClick = (suggestion: string) => {
     handleSendMessage(suggestion);
   };
-  
-  // Test function for debugging streaming
-  const testStreaming = async () => {
-    console.log("Testing streaming connection...");
-    
-    // Create a test message in the chat
-    const testMessageId = Date.now().toString();
-    
-    const testMessage: Message = {
-      id: testMessageId,
-      content: "Testing streaming connection...",
-      isUser: false,
-      timestamp: new Date(),
-      isStreaming: true,
-    };
-    
-    setMessages(prev => [...prev, testMessage]);
-    setIsProcessing(true);
-    
-    try {
-      await testStreamingConnection((message, isDone) => {
-        if (!isDone) {
-          // Update message with streamed content
-          setMessages(prev => {
-            const updated = [...prev];
-            const messageIndex = updated.findIndex(msg => msg.id === testMessageId);
-            
-            if (messageIndex !== -1) {
-              updated[messageIndex] = {
-                ...updated[messageIndex],
-                content: updated[messageIndex].content + "\n" + message,
-              };
-            }
-            
-            return updated;
-          });
-        } else {
-          // End streaming
-          setMessages(prev => {
-            const updated = [...prev];
-            const messageIndex = updated.findIndex(msg => msg.id === testMessageId);
-            
-            if (messageIndex !== -1) {
-              updated[messageIndex] = {
-                ...updated[messageIndex],
-                content: updated[messageIndex].content + "\nStreaming test complete!",
-                isStreaming: false,
-              };
-            }
-            
-            return updated;
-          });
-          
-          setIsProcessing(false);
-        }
-      });
-    } catch (error) {
-      console.error("Streaming test error:", error);
-      toast({
-        title: 'Test Error',
-        description: `Streaming test failed: ${error.message}`,
-        variant: 'destructive',
-      });
-      
-      setIsProcessing(false);
-    }
-  };
 
   return (
     <div className="flex flex-col h-full max-w-4xl w-full mx-auto p-4 md:p-6">
       <ChatHeader />
-      
-      <div className="flex justify-between items-center mb-2">
-        <div></div>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={testStreaming}
-          disabled={isProcessing}
-        >
-          Test Streaming
-        </Button>
-      </div>
       
       <MessageList messages={messages} isProcessing={isProcessing} />
 
@@ -300,4 +229,4 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
   );
 };
 
-export default ChatInterface;
+export default ChatInterface; 

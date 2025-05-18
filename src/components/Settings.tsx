@@ -18,7 +18,7 @@ export const Settings: React.FC = () => {
     name: 'Admin User',
     email: 'admin@edgegpt.com',
     role: 'Administrator',
-    bio: 'System administrator with full access rights to the EdgeGPT platform.',
+    bio: 'System administrator with full access rights to the Vantrix platform.',
   });
 
   const [securityForm, setSecurityForm] = useState({

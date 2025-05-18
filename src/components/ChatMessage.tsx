@@ -176,7 +176,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           
           {message.isStreaming && (
             <div className="flex items-center mt-2">
-              <StatusIndicator status="loading" showLabel={false} />
+              <StatusIndicator status="loading" />
               <span className="text-xs text-muted-foreground ml-2">generating...</span>
             </div>
           )}

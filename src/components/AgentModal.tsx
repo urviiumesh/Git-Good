@@ -30,7 +30,7 @@ export function AgentModal({ open, onOpenChange }: AgentModalProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<AbortController | null>(null);
 
-  // Reset state when modal closes
+  // Reset state when modal state changes
   useEffect(() => {
     if (!open) {
       // If there's an ongoing request, abort it
@@ -38,9 +38,31 @@ export function AgentModal({ open, onOpenChange }: AgentModalProps) {
         controllerRef.current.abort();
         controllerRef.current = null;
       }
-      setMessages([]);
-      setInput('');
+      
+      // Immediately set processing to false to avoid UI getting stuck
       setIsProcessing(false);
+      
+      // We'll delay clearing messages so they don't flash if modal reopens quickly
+      const timer = setTimeout(() => {
+        if (!open) { // Double check it's still closed
+          setMessages([]);
+          setInput('');
+        }
+      }, 300);
+      
+      // Enable AgenTick mode when modal is closed
+      localStorage.setItem('AgenTick', JSON.stringify(true));
+      
+      return () => clearTimeout(timer);
+    } else if (open && messages.length === 0) {
+      // Add welcome message when modal is opened and no messages exist
+      const initialMessage: Message = {
+        id: Date.now().toString(),
+        content: "Welcome to Agent Mode! How can I assist you today?",
+        isUser: false,
+        timestamp: new Date(),
+      };
+      setMessages([initialMessage]);
     }
   }, [open]);
 
@@ -113,6 +135,7 @@ export function AgentModal({ open, onOpenChange }: AgentModalProps) {
       await generateAgentResponse(
         input,
         (token, isDone) => {
+          // Check if modal was closed or request was aborted
           if (controllerRef.current?.signal.aborted) return;
           
           if (!isDone) {
@@ -145,7 +168,7 @@ export function AgentModal({ open, onOpenChange }: AgentModalProps) {
         },
         history
       );
-    } catch (error) {
+    } catch (error: any) {
       if (error.name === 'AbortError') {
         console.log('Request was aborted');
         return;
@@ -170,15 +193,26 @@ export function AgentModal({ open, onOpenChange }: AgentModalProps) {
   };
 
   const handleDialogOpenChange = (open: boolean) => {
-    if (!open && isProcessing) {
-      // If closing while processing, abort the current request
+    // Immediately set processing to false to ensure the UI isn't frozen
+    if (!open) {
+      setIsProcessing(false);
+      
+      // If there's an ongoing request, abort it
       if (controllerRef.current) {
         controllerRef.current.abort();
         controllerRef.current = null;
       }
-      setIsProcessing(false);
     }
+    
+    // Then notify parent component about the change
     onOpenChange(open);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
 
   return (
@@ -226,7 +260,7 @@ export function AgentModal({ open, onOpenChange }: AgentModalProps) {
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
+            onKeyDown={handleKeyDown}
             placeholder="Ask the agent anything..."
             disabled={isProcessing || agentStatus === 'offline'}
             className="flex-grow"

@@ -85,7 +85,12 @@ export const detectRole = (message: string): AgentRole => {
   
   // Marketing related topics
   if (message.includes('marketing') || message.includes('campaign') || message.includes('advertis') || 
-      message.includes('brand') || message.includes('customer') || message.includes('user acquisition')) {
+      message.includes('brand') || message.includes('customer') || message.includes('user acquisition') ||
+      message.includes('social media') || message.includes('content') || message.includes('engagement') ||
+      message.includes('reach') || message.includes('impression') || message.includes('conversion') ||
+      message.includes('roi') || message.includes('analytics') || message.includes('metrics') ||
+      message.includes('target') || message.includes('audience') || message.includes('channel') ||
+      message.includes('strategy') || message.includes('growth') || message.includes('awareness')) {
     return 'marketing';
   }
   
@@ -102,7 +107,7 @@ export const detectRole = (message: string): AgentRole => {
   }
   
   // Default to intern for general queries
-  return 'intern';
+  return 'marketing';
 };
 
 // Function to generate a response using the appropriate agent

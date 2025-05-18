@@ -24,7 +24,7 @@ export const ChatWelcome: React.FC = () => {
       </div>
       
       <div className="space-y-1 sm:space-y-2">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight">Welcome to EdgeGPT</h2>
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight">Welcome to Vantrix </h2>
         <p className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-xs sm:max-w-sm md:max-w-md mx-auto px-2">
           Your advanced AI assistant for development, security, and enterprise tasks. 
           Ask me about code, architecture, best practices, or any technical questions.

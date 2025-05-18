@@ -1,0 +1,11 @@
+{
+    "include": [
+        "agentrick_server.py",
+        "gitgoodbackend"
+    ],
+    "extraPaths": [
+        "gitgoodbackend"
+    ],
+    "reportMissingImports": true,
+    "reportMissingModuleSource": false
+} 

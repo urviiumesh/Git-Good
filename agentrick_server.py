@@ -25,7 +25,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Add gitgoodbackend folder to Python path
-sys.path.append(str(Path("gitgoodbackend").absolute()))
+gitgoodbackend_path = Path("gitgoodbackend").absolute()
+if str(gitgoodbackend_path) not in sys.path:
+    sys.path.insert(0, str(gitgoodbackend_path))
 
 # Import agent module functions
 try:
@@ -124,7 +126,7 @@ app.add_middleware(
 
 # Map role names to agent objects
 role_to_agent = {
-    "software": software_agent,
+    "softwa re": software_agent,
     "marketing": marketing_agent,
     "cpo": cpo_agent,
     "accounts": accounts_agent,
@@ -166,21 +168,30 @@ async def process_agent_request(request: AgentRequest):
     # Get agent instance
     agent = role_to_agent[request.role]
 
-    # Process conversation history
+    # Process conversation history with enhanced context for marketing
     history_context = ""
     if request.conversationHistory and len(request.conversationHistory) > 0:
-        for msg in request.conversationHistory[-5:]:  # Use last 5 messages for context
+        # For marketing, use more context (last 10 messages instead of 5)
+        context_messages = request.conversationHistory[-10:] if request.role == "marketing" else request.conversationHistory[-5:]
+        for msg in context_messages:
             if msg["role"] == "user":
                 history_context += f"User: {msg['content']}\n"
             else:
                 history_context += f"Assistant: {msg['content']}\n"
 
-    # Combine user context and history
+    # Combine user context and history with role-specific enhancements
     full_context = ""
     if request.userContext:
         full_context += f"Context: {request.userContext}\n\n"
     if history_context:
         full_context += f"Previous conversation:\n{history_context}\n"
+    
+    # Add marketing-specific context if applicable
+    if request.role == "marketing":
+        full_context += "\nMarketing Context:\n"
+        full_context += "- Focus on campaign performance, ROI, and user engagement metrics\n"
+        full_context += "- Consider brand consistency and messaging across channels\n"
+        full_context += "- Prioritize actionable insights and recommendations\n"
 
     logger.info(f"Processing request for role '{request.role}' with message: {request.userMessage}")
 
@@ -191,14 +202,18 @@ async def process_agent_request(request: AgentRequest):
             response_text = agent.process_query(request.userMessage)
             logger.info(f"Response generated: {response_text[:100]}...")
             
-            # Stream the response token by token
+            # Stream the response token by token with optimized delay for marketing
+            delay = 0.005 if request.role == "marketing" else 0.01  # Faster streaming for marketing
             for char in response_text:
                 yield char
-                await asyncio.sleep(0.01)  # Small delay to simulate streaming
+                await asyncio.sleep(delay)
                 
         except Exception as e:
             error_msg = f"Error generating response: {str(e)}"
             logger.error(error_msg)
+            # Add marketing-specific error handling
+            if request.role == "marketing":
+                error_msg += "\n\nPlease ensure your marketing data is up to date and try again."
             for char in error_msg:
                 yield char
                 await asyncio.sleep(0.01)

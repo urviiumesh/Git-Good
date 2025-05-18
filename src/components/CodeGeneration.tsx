@@ -138,7 +138,7 @@ export const CodeGeneration: React.FC = () => {
                   </TabsList>
                 </div>
                 <CardDescription>
-                  Describe what you want to build and EdgeGPT will generate the code for you
+                  Describe what you want to build and Vantrix will generate the code for you
                 </CardDescription>
               </CardHeader>
               
@@ -188,7 +188,7 @@ export const CodeGeneration: React.FC = () => {
                 <CardContent className="pt-6">
                   {isGenerating ? (
                     <div className="flex items-center justify-center py-16">
-                      <StatusIndicator status="loading" label="Generating secure code..." />
+                      <StatusIndicator status="loading" name="Generating secure code..." />
                     </div>
                   ) : generatedCode ? (
                     <div className="space-y-4">
@@ -265,19 +265,19 @@ export const CodeGeneration: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-sm">SQL Injection</span>
-                  <StatusIndicator status="online" label="Protected" />
+                  <StatusIndicator status="online" name="Protected" />
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm">XSS Vulnerabilities</span>
-                  <StatusIndicator status="online" label="Protected" />
+                  <StatusIndicator status="online" name="Protected" />
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm">Access Control</span>
-                  <StatusIndicator status="online" label="Protected" />
+                  <StatusIndicator status="online" name="Protected" />
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm">Data Validation</span>
-                  <StatusIndicator status="online" label="Protected" />
+                  <StatusIndicator status="online" name="Protected" />
                 </div>
               </div>
             </CardContent>

@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 export const useAgenTickStatus = () => {
   const [status, setStatus] = useState<'online' | 'offline'>('offline');
   const [isLoading, setIsLoading] = useState(true);
+  const [lastStatusChange, setLastStatusChange] = useState<Date | null>(null);
 
   useEffect(() => {
     const checkStatus = async () => {
@@ -19,13 +20,46 @@ export const useAgenTickStatus = () => {
         
         if (response.ok) {
           const data = await response.json();
-          setStatus(data.status === 'ok' ? 'online' : 'offline');
+          const newStatus = data.status === 'ok' ? 'online' : 'offline';
+          
+          // Only update the state if the status has changed
+          if (newStatus !== status) {
+            setStatus(newStatus);
+            setLastStatusChange(new Date());
+            
+            // If server went offline, ensure AgenTick mode is reset
+            if (newStatus === 'offline') {
+              localStorage.setItem('AgenTick', JSON.stringify(false));
+              // Dispatch event to notify other components
+              window.dispatchEvent(new CustomEvent('agentStatusChanged', {
+                detail: { status: newStatus }
+              }));
+            }
+          }
         } else {
-          setStatus('offline');
+          if (status !== 'offline') {
+            setStatus('offline');
+            setLastStatusChange(new Date());
+            
+            // Reset AgenTick mode if server is unreachable
+            localStorage.setItem('AgenTick', JSON.stringify(false));
+            window.dispatchEvent(new CustomEvent('agentStatusChanged', {
+              detail: { status: 'offline' }
+            }));
+          }
         }
       } catch (error) {
         console.error('Error checking AgenTick server:', error);
-        setStatus('offline');
+        if (status !== 'offline') {
+          setStatus('offline');
+          setLastStatusChange(new Date());
+          
+          // Reset AgenTick mode if server is unreachable
+          localStorage.setItem('AgenTick', JSON.stringify(false));
+          window.dispatchEvent(new CustomEvent('agentStatusChanged', {
+            detail: { status: 'offline' }
+          }));
+        }
       } finally {
         setIsLoading(false);
       }
@@ -36,7 +70,7 @@ export const useAgenTickStatus = () => {
     const interval = setInterval(checkStatus, 30000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [status]);
 
-  return { status, isLoading };
+  return { status, isLoading, lastStatusChange };
 }; 

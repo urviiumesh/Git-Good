@@ -636,8 +636,7 @@ const MarketingDashboard = () => {
                     </div>
                     <Progress
                       value={campaign.feedback_score * 10}
-                      className="h-2"
-                      indicatorClassName="bg-gradient-to-r from-blue-500 to-purple-500"
+                      className="h-2 bg-gradient-to-r from-blue-500 to-purple-500"
                     />
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Feedback Score</span>
@@ -759,7 +758,7 @@ const [sortBy, setSortBy] = useState('date');
             <div className="text-4xl font-bold text-green-600 dark:text-green-400">
               {stats.efficiency}%
             </div>
-            <Progress value={parseFloat(stats.efficiency)} className="mt-4" />
+            <Progress value={parseFloat(String(stats.efficiency))} className="mt-4" />
           </CardContent>
         </Card>
       </motion.div>
@@ -902,7 +901,7 @@ const [sortBy, setSortBy] = useState('date');
                     .sort((a, b) => {
                       switch(sortBy) {
                         case 'date':
-                          return new Date(b.date_checked) - new Date(a.date_checked);
+                          return new Date(b.date_checked).getTime() - new Date(a.date_checked).getTime();
                         case 'items':
                           return b.items_checked - a.items_checked;
                         case 'discrepancies':
@@ -932,7 +931,7 @@ const [sortBy, setSortBy] = useState('date');
                         <td className="px-6 py-4">{log.reported_by.split('@')[0]}</td>
                         <td className="px-6 py-4">
                           <Badge 
-                            variant={log.supervisor_approval ? "success" : "warning"}
+                            variant="default"
                             className={`${log.supervisor_approval ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'}`}
                           >
                             {log.supervisor_approval ? "Approved" : "Pending"}
@@ -1506,7 +1505,7 @@ const SoftwareEngineeringSection = () => {
     
     return bugData
       .filter(bug => bug && bug.timestamp && new Date(bug.timestamp) >= daysAgo)
-      .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+      .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
       .reduce((acc, bug) => {
         if (bug) {
           const date = new Date(bug.timestamp).toLocaleDateString();
@@ -1689,14 +1688,14 @@ const SoftwareEngineeringSection = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <Badge
-                          variant={bug.severity === 'High' ? 'destructive' : bug.severity === 'Medium' ? 'warning' : 'secondary'}
+                          variant={bug.severity === 'High' ? 'destructive' : bug.severity === 'Medium' ? 'secondary' : 'default'}
                         >
                           {bug.severity}
                         </Badge>
                         <div className="font-medium">{bug.bug_id}</div>
                       </div>
                       <Badge
-                        variant={bug.status === 'Resolved' ? 'success' : 'outline'}
+                        variant={bug.status === 'Resolved' ? 'default' : 'outline'}
                         className="capitalize"
                       >
                         {bug.status}
@@ -1730,7 +1729,7 @@ function AccountsFinance() {
       .then(res => res.text())
       .then(csv => {
         const parsed = Papa.parse(csv, { header: true, dynamicTyping: true });
-        setData(parsed.data.filter(row => row.transaction_id));
+        setData(parsed.data.filter((row: any) => row.transaction_id));
       });
   }, []);
 

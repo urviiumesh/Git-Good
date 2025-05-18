@@ -37,8 +37,8 @@ export const MessageList: React.FC<MessageListProps> = ({ messages, isProcessing
           
           {isProcessing && !messages.some(msg => msg.isStreaming) && (
             <div className="flex items-center p-3 space-x-2 bg-muted/20 dark:bg-muted/10 rounded-lg animate-pulse">
-              <StatusIndicator status="loading" showLabel={false} />
-              <span className="text-sm text-muted-foreground">EdgeGPT is thinking...</span>
+              <StatusIndicator status="loading" />
+              <span className="text-sm text-muted-foreground">Vantrix is thinking...</span>
             </div>
           )}
           

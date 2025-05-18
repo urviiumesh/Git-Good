@@ -173,6 +173,52 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
     setSelfDestructEnabled(enabled);
   };
 
+  // Add event listener for agent status changes
+  useEffect(() => {
+    const handleAgentStatusChange = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail && customEvent.detail.status === 'offline') {
+        // If agent server went offline, reset processing state
+        setIsProcessing(false);
+        toast({
+          title: 'Agent Server Offline',
+          description: 'The agent server is no longer available. Your conversation will continue in standard mode.',
+          variant: 'destructive',
+        });
+      }
+    };
+
+    window.addEventListener('agentStatusChanged', handleAgentStatusChange);
+    return () => window.removeEventListener('agentStatusChanged', handleAgentStatusChange);
+  }, [toast]);
+  
+  // Add useEffect to check for AgenTick state in localStorage on mount and when it changes
+  useEffect(() => {
+    // Check if AgenTick is enabled in localStorage
+    const savedAgenTick = localStorage.getItem('AgenTick');
+    if (savedAgenTick) {
+      const isAgenTickEnabled = JSON.parse(savedAgenTick);
+      console.log(`AgenTick mode is ${isAgenTickEnabled ? 'enabled' : 'disabled'} from localStorage`);
+      
+      // Reset processing state if needed to prevent UI from being stuck
+      if (isProcessing) {
+        setIsProcessing(false);
+      }
+    }
+    
+    // Set up listener for storage changes to detect when AgenTick is toggled
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'AgenTick') {
+        console.log('AgenTick state changed in localStorage');
+        // Reset processing state to ensure UI isn't stuck
+        setIsProcessing(false);
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, [isProcessing]);
+
   const handleSendMessage = async (inputText: string, options: { sequentialThinking: boolean, selfDestruct: boolean, AgenTick: boolean }) => {
     console.log("Sending message:", inputText, "with options:", options);
     
@@ -250,8 +296,12 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
         return;
       }
 
+      // Check if AgenTick is enabled from localStorage
+      const savedAgenTick = localStorage.getItem('AgenTick');
+      const isAgenTickEnabled = savedAgenTick ? JSON.parse(savedAgenTick) : false;
+      
       // Check if AgenTick is enabled
-      if (options.AgenTick) {
+      if (options.AgenTick || isAgenTickEnabled) {
         // Check if agent server is available
         const agentAvailable = await checkAgentServer();
         if (!agentAvailable) {
@@ -259,7 +309,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ activeConversation
         }
         await processAgenTick(inputText, botResponseId, currentConversationId);
       } else {
-        throw new Error('Please enable AgenTick mode to interact with the system.');
+        throw new Error('Please click on the Agent Mode option in the settings menu (sparkles icon) to enable AgenTick mode.');
       }
     } catch (error) {
       console.error("Error processing message:", error);

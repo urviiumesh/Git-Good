@@ -12,6 +12,8 @@ import {
 import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from './ThemeToggle';
+import VoiceCommandButton from './VoiceCommandButton';
+import { VoiceCommand } from '@/utils/voiceCommands';
 import { UserAccount } from './UserAccount';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/providers/AuthProvider';
@@ -184,6 +186,22 @@ export const ChatLayout: React.FC = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
   
+  // Define voice commands for sidebar/header
+  const voiceCommands: VoiceCommand[] = [
+    {
+      command: "new conversation",
+      action: handleNewConversation,
+      aliases: ["start new", "clear chat", "reset conversation"]
+    },
+    {
+      command: "change theme",
+      action: () => {
+        document.documentElement.classList.toggle('dark');
+      },
+      aliases: ["toggle theme", "switch theme", "dark mode", "light mode"]
+    }
+  ];
+  
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
       {/* Mobile header with menu toggle */}
@@ -197,7 +215,8 @@ export const ChatLayout: React.FC = () => {
         >
           {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
-        <div className="font-semibold text-lg flex-1 truncate">EdgeGPT</div>
+        <div className="font-semibold text-lg flex-1 truncate">Vantrix </div>
+        <VoiceCommandButton commands={voiceCommands} className="ml-2" />
         <ThemeToggle className="ml-2" />
       </div>
       
@@ -218,7 +237,7 @@ export const ChatLayout: React.FC = () => {
           "hidden lg:flex items-center p-4 border-b border-border",
           sidebarCollapsed ? "justify-center" : "justify-between"
         )}>
-          {!sidebarCollapsed && <h1 className="font-semibold text-lg">EdgeGPT</h1>}
+          {!sidebarCollapsed && <h1 className="font-semibold text-lg">Vantrix </h1>}
           {sidebarCollapsed && (
             <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
               E
@@ -226,6 +245,7 @@ export const ChatLayout: React.FC = () => {
           )}
           
           <div className="flex items-center space-x-2">
+            <VoiceCommandButton commands={voiceCommands} />
             <ThemeToggle />
             <Button 
               variant="ghost" 

@@ -24,7 +24,7 @@ interface ChatHeaderProps {
 }
 
 export const ChatHeader: React.FC<ChatHeaderProps> = ({ 
-  title = 'EdgeGPT' 
+  title = 'Vantrix' 
 }) => {
   const [currentModel, setCurrentModel] = useState<ModelType>('text');
   const [isLoading, setIsLoading] = useState(false);
@@ -85,8 +85,8 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
       toast({
         title: `Switched to ${newModelType} mode`,
         description: newModelType === 'text' 
-          ? 'EdgeGPT will now respond with standard text responses.' 
-          : 'EdgeGPT will now focus on generating clean, well-formatted code.',
+          ? 'Vantrix will now respond with standard text responses.' 
+          : 'Vantrix will now focus on generating clean, well-formatted code.',
         variant: 'default',
       });
     } catch (error) {
@@ -135,7 +135,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
       
       // Add title
       pdf.setFontSize(18);
-      pdf.text('EdgeGPT Chat Export', 105, 15, { align: 'center' });
+      pdf.text('Vantrix Chat Export', 105, 15, { align: 'center' });
       pdf.setFontSize(12);
       const timestamp = new Date().toLocaleString();
       pdf.text(`Generated: ${timestamp}`, 105, 22, { align: 'center' });
@@ -208,7 +208,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         )}
         
         <h1 className="text-xl font-semibold">
-          EdgeGPT
+          Vantrix
           <span className={cn(
             "ml-2 text-sm px-2 py-0.5 rounded-full font-medium",
             currentModel === 'text' 
@@ -232,7 +232,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
                 <BrainCircuit className="h-4 w-4 text-muted-foreground" />
                 <StatusIndicator 
                   status={convertStatus(mcpStatus)} 
-                  label="MCP Server" 
+                  name="MCP Server" 
                   className="ml-1" 
                 />
               </div>
@@ -252,7 +252,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
                 <Bot className="h-4 w-4 text-muted-foreground" />
                 <StatusIndicator 
                   status={AgenTickStatus} 
-                  label="AgenTick" 
+                  name="AgenTick" 
                   className="ml-1" 
                 />
               </div>

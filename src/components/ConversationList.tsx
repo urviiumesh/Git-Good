@@ -5,6 +5,7 @@ import { PlusCircle, MessageSquare, Trash2, LayoutDashboard } from 'lucide-react
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ConversationListProps {
   conversations: Conversation[];
@@ -33,11 +34,12 @@ export const ConversationList: React.FC<ConversationListProps> = ({
   };
 
   return (
-    <div className="relative flex flex-col h-full bg-sidebar-background">
+    <div className="relative flex flex-col h-full bg-sidebar-background overflow-hidden">
       {/* Fixed Header - Always visible at top */}
       <div className={cn(
-        "absolute top-0 left-0 right-0 z-10 border-b border-sidebar-border p-4 bg-sidebar-background",
-        isCollapsed && "p-2 flex justify-center"
+        "fixed top-0 left-0 z-20 border-b border-sidebar-border p-4 bg-sidebar-background",
+        isCollapsed ? "p-2 flex justify-center w-20" : "w-80",
+        "lg:absolute lg:right-0"
       )}>
         {isCollapsed ? (
           <TooltipProvider>
@@ -69,9 +71,40 @@ export const ConversationList: React.FC<ConversationListProps> = ({
         )}
       </div>
       
-      {/* Fixed Footer - Always visible at bottom */}
+      {/* Scrollable Area - With padding to avoid overlap with fixed elements */}
+      <div className="flex-none mt-16 px-1 mb-2" style={{ height: '280px' }}>
+        <div className="h-full w-full bg-sidebar-background overflow-y-auto custom-scrollbar">
+          <div className={cn(
+            "p-2 space-y-1",
+            isCollapsed && "px-0"
+          )}>
+            {sortedConversations.length === 0 ? (
+              <div className={cn(
+                "text-center p-4 text-muted-foreground",
+                isCollapsed && "p-2 text-xs"
+              )}>
+                {isCollapsed ? "No chats" : "No conversations yet"}
+              </div>
+            ) : (
+              // Show all conversations to enable scrolling
+              sortedConversations.map((convo) => (
+                <ConversationItem
+                  key={convo.id}
+                  conversation={convo}
+                  isActive={activeConversationId === convo.id}
+                  onSelect={() => onSelectConversation(convo.id)}
+                  onDelete={() => onDeleteConversation(convo.id)}
+                  isCollapsed={isCollapsed}
+                />
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+      
+      {/* Dashboard Button - Below chat history */}
       <div className={cn(
-        "absolute bottom-0 left-0 right-0 z-10 border-t border-sidebar-border p-4 bg-sidebar-background",
+        "border-t border-sidebar-border p-4 bg-sidebar-background mt-2",
         isCollapsed && "p-2 flex justify-center"
       )}>
         {isCollapsed ? (
@@ -102,38 +135,6 @@ export const ConversationList: React.FC<ConversationListProps> = ({
             Dashboard
           </Button>
         )}
-      </div>
-      
-      {/* Scrollable Area - With padding to avoid overlap with fixed elements */}
-      <div className="overflow-y-auto h-full w-full">
-        {/* Top padding to avoid header overlap */}
-        <div className="pt-16"></div>
-        
-        {/* Conversation list */}
-        <div className={cn(
-          "p-2 space-y-1 pb-20", // Reduced padding to ensure footer is visible
-          isCollapsed && "px-0"
-        )}>
-          {sortedConversations.length === 0 ? (
-            <div className={cn(
-              "text-center p-4 text-muted-foreground",
-              isCollapsed && "p-2 text-xs"
-            )}>
-              {isCollapsed ? "No chats" : "No conversations yet"}
-            </div>
-          ) : (
-            sortedConversations.map((convo) => (
-              <ConversationItem
-                key={convo.id}
-                conversation={convo}
-                isActive={activeConversationId === convo.id}
-                onSelect={() => onSelectConversation(convo.id)}
-                onDelete={() => onDeleteConversation(convo.id)}
-                isCollapsed={isCollapsed}
-              />
-            ))
-          )}
-        </div>
       </div>
     </div>
   );

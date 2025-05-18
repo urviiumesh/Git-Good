@@ -87,7 +87,7 @@ print(f"Code model path: {code_llm_path}")
 
 # Model configuration - reduce context size for faster responses
 model_config = {
-    "n_ctx": 2048,  # Reduced from 4096
+    "n_ctx": 4096,  # Reduced from 4096
     "n_threads": 4,  # Reduced from 8
     "n_batch": 512,
     "n_gpu_layers": 0,
@@ -130,7 +130,7 @@ app.add_middleware(
 
 class PromptRequest(BaseModel):
     prompt: str
-    word_count: int = 50  # Default to 50 words for faster responses
+    word_count: int = 150  # Default to 50 words for faster responses
     max_tokens: Optional[int] = None  # New parameter that takes precedence over word_count
 
 @app.get("/")

@@ -206,7 +206,7 @@ export const ChatLayout: React.FC = () => {
         className={cn(
           "transition-all duration-300 ease-in-out border-r border-border bg-background",
           sidebarCollapsed ? "w-20" : "w-80",
-          "lg:relative lg:block",
+          "lg:relative lg:block overflow-hidden",
           // Mobile positioning
           sidebarOpen 
             ? "fixed inset-y-0 left-0 z-40 pt-16 lg:pt-0" 
@@ -239,7 +239,7 @@ export const ChatLayout: React.FC = () => {
         </div>
         
         {/* Conversation List */}
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 h-full">
           <ConversationList
             conversations={conversations}
             activeConversationId={activeConversationId}

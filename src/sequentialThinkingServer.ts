@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import fetch from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 
 // Define the ThoughtData interface similar to the reference implementation
 interface ThoughtData {
@@ -135,7 +135,7 @@ class SequentialThinkingServer {
         },
         body: JSON.stringify({
           prompt: thoughtPrompt,
-          max_tokens: 50 // Use max_tokens instead for better control
+          max_tokens: 150 // Use max_tokens instead for better control
         }),
         signal: controller.signal
       });

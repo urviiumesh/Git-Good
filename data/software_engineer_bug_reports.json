@@ -1,94 +1,92 @@
-{
-  "bug_reports": [
+[
     {
-      "bug_id": "BUG-001",
-      "module": "Payment Gateway",
-      "severity": "Critical",
-      "status": "Open",
-      "reported_by": "engineer_1@zepto.com",
-      "description": "Payment processing timeout on high-volume transactions",
-      "timestamp": "2024-03-15T14:30:00Z"
+        "bug_id": "BUG-0001",
+        "module": "Payment Gateway",
+        "severity": "Medium",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "In Progress",
+        "timestamp": "2025-05-02T9:00:00Z"
     },
     {
-      "bug_id": "BUG-002",
-      "module": "Search",
-      "severity": "High",
-      "status": "Open",
-      "reported_by": "engineer_2@zepto.com",
-      "description": "Search results not returning relevant items for certain queries",
-      "timestamp": "2024-03-18T10:15:00Z"
+        "bug_id": "BUG-0002",
+        "module": "Recommendation Engine",
+        "severity": "High",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Resolved",
+        "timestamp": "2025-05-03T10:00:00Z"
     },
     {
-      "bug_id": "BUG-003",
-      "module": "User Profile",
-      "severity": "Medium",
-      "status": "Resolved",
-      "reported_by": "engineer_1@zepto.com",
-      "description": "User profile photo not updating immediately after change",
-      "timestamp": "2024-03-20T09:45:00Z"
+        "bug_id": "BUG-0003",
+        "module": "Search",
+        "severity": "Critical",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Closed",
+        "timestamp": "2025-05-04T11:00:00Z"
     },
     {
-      "bug_id": "BUG-004",
-      "module": "Checkout",
-      "severity": "Critical",
-      "status": "Open",
-      "reported_by": "engineer_2@zepto.com",
-      "description": "Order confirmation emails not being sent for international orders",
-      "timestamp": "2024-03-22T16:20:00Z"
+        "bug_id": "BUG-0004",
+        "module": "User Profile",
+        "severity": "Low",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Open",
+        "timestamp": "2025-05-05T12:00:00Z"
     },
     {
-      "bug_id": "BUG-005",
-      "module": "Payment Gateway",
-      "severity": "High",
-      "status": "Resolved",
-      "reported_by": "engineer_1@zepto.com",
-      "description": "Credit card validation fails for certain international cards",
-      "timestamp": "2024-03-25T11:30:00Z"
+        "bug_id": "BUG-0005",
+        "module": "Checkout",
+        "severity": "Medium",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "In Progress",
+        "timestamp": "2025-05-06T13:00:00Z"
     },
     {
-      "bug_id": "BUG-006",
-      "module": "Recommendation Engine",
-      "severity": "Medium",
-      "status": "Open",
-      "reported_by": "engineer_2@zepto.com",
-      "description": "Recommendations not updating after user purchases",
-      "timestamp": "2024-03-28T14:10:00Z"
+        "bug_id": "BUG-0006",
+        "module": "Payment Gateway",
+        "severity": "High",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Resolved",
+        "timestamp": "2025-05-07T14:00:00Z"
     },
     {
-      "bug_id": "BUG-007",
-      "module": "Search",
-      "severity": "Low",
-      "status": "Resolved",
-      "reported_by": "engineer_1@zepto.com",
-      "description": "Search filter UI inconsistent on mobile devices",
-      "timestamp": "2024-04-02T09:20:00Z"
+        "bug_id": "BUG-0007",
+        "module": "Recommendation Engine",
+        "severity": "Critical",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Closed",
+        "timestamp": "2025-05-08T15:00:00Z"
     },
     {
-      "bug_id": "BUG-008",
-      "module": "User Profile",
-      "severity": "Critical",
-      "status": "Open",
-      "reported_by": "engineer_2@zepto.com",
-      "description": "Password reset functionality not working for accounts older than 1 year",
-      "timestamp": "2024-04-05T15:40:00Z"
+        "bug_id": "BUG-0008",
+        "module": "Search",
+        "severity": "Low",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Open",
+        "timestamp": "2025-05-09T16:00:00Z"
     },
     {
-      "bug_id": "BUG-009",
-      "module": "Checkout",
-      "severity": "High",
-      "status": "Open",
-      "reported_by": "engineer_1@zepto.com",
-      "description": "Discount codes not applying correctly to bulk orders",
-      "timestamp": "2024-04-08T13:25:00Z"
+        "bug_id": "BUG-0009",
+        "module": "User Profile",
+        "severity": "Medium",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "In Progress",
+        "timestamp": "2025-05-10T17:00:00Z"
     },
     {
-      "bug_id": "BUG-010",
-      "module": "Recommendation Engine",
-      "severity": "Low",
-      "status": "Resolved",
-      "reported_by": "engineer_2@zepto.com",
-      "description": "Recommended items showing out of stock products",
-      "timestamp": "2024-04-10T10:55:00Z"
+        "bug_id": "BUG-0010",
+        "module": "Checkout",
+        "severity": "High",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Resolved",
+        "timestamp": "2025-05-11T18:00:00Z"
     }
-  ]
-}
+]

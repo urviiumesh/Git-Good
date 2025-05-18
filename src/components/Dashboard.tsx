@@ -287,7 +287,8 @@ const VendorPayments = () => (
   </Card>
 );
 
-// Marketing Components
+
+
 interface MarketingCampaign {
   campaign_id: string;
   campaign_name: string;
@@ -340,31 +341,56 @@ const MarketingDashboard = () => {
   
   // Process campaign data for analytics
   const metrics = useMemo(() => {
-    // Calculate best feedback score (highest value)
-    const bestFeedback = Math.max(...marketingData.map(item => item.feedback_score));
-    
-    // Calculate total conversions (sum of all conversions)
-    const totalConversions = marketingData.reduce((sum, item) => sum + item.conversions, 0);
-    
-    // Calculate average CTR (average of all click through rates)
-    const avgCTR = marketingData.reduce(
-      (sum, item) => sum + item.click_through_rate, 0
-    ) / marketingData.length;
-    
-    // Count live campaigns
-    const liveCampaigns = marketingData.filter(item => item.status === 'Live').length;
+    // Return defaults if no data or invalid data
+    if (!marketingData || marketingData.length === 0) {
+      return {
+        bestFeedback: 0,
+        totalConversions: 0,
+        avgCTR: 0,
+        liveCampaigns: 0
+      };
+    }
 
-    return { 
-      bestFeedback, 
-      totalConversions, 
-      avgCTR: avgCTR.toFixed(2), // Format to 2 decimal places
-      liveCampaigns 
+    // Safely calculate best feedback score
+    const validFeedbackScores = marketingData
+      .map(item => Number(item.feedback_score))
+      .filter(score => !isNaN(score));
+    
+    const bestFeedback = validFeedbackScores.length > 0
+      ? Math.max(...validFeedbackScores)
+      : 0;
+
+    // Safely calculate total conversions
+    const totalConversions = marketingData.reduce((sum, item) => {
+      const conversions = Number(item.conversions) || 0;
+      return sum + conversions;
+    }, 0);
+
+    // Safely calculate average CTR
+    const validCTRs = marketingData
+      .map(item => Number(item.click_through_rate))
+      .filter(rate => !isNaN(rate));
+    
+    const avgCTR = validCTRs.length > 0
+      ? validCTRs.reduce((sum, rate) => sum + rate, 0) / validCTRs.length
+      : 0;
+
+    // Count live campaigns
+    const liveCampaigns = marketingData.filter(item => 
+      item.status === 'Live'
+    ).length;
+
+    return {
+      bestFeedback,
+      totalConversions,
+      avgCTR: parseFloat(avgCTR.toFixed(2)), // Format to 2 decimal places
+      liveCampaigns
     };
   }, [marketingData]);
 
   // Get top 4 performing campaigns by conversions
   const topPerformers = useMemo(() => {
-    return marketingData
+    return [...marketingData]
       .sort((a, b) => b.conversions - a.conversions)
       .slice(0, 4);
   }, [marketingData]);
@@ -466,8 +492,8 @@ const MarketingDashboard = () => {
         </motion.div>
       </div>
 
-       {/* Analytics Charts */}
-       <div className="grid grid-cols-2 gap-6">
+      {/* Analytics Charts */}
+      <div className="grid grid-cols-2 gap-6">
         <motion.div
           whileHover={{ scale: 1.01 }}
           transition={{ type: "spring", stiffness: 300 }}
@@ -566,7 +592,7 @@ const MarketingDashboard = () => {
         </motion.div>
       </div>
 
-       {/* Top Performing Campaigns */}
+      {/* Top Performing Campaigns */}
       <Card className="shadow-lg">
         <CardHeader>
           <CardTitle>Top Performing Campaigns</CardTitle>

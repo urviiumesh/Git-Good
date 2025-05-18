@@ -1,0 +1,902 @@
+[
+    {
+        "bug_id": "BUG-0001",
+        "module": "Payment Gateway",
+        "severity": "Medium",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "In Progress",
+        "timestamp": "2025-05-02T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0002",
+        "module": "Recommendation Engine",
+        "severity": "High",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Resolved",
+        "timestamp": "2025-05-03T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0003",
+        "module": "Search",
+        "severity": "Critical",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Closed",
+        "timestamp": "2025-05-04T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0004",
+        "module": "User Profile",
+        "severity": "Low",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Open",
+        "timestamp": "2025-05-05T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0005",
+        "module": "Checkout",
+        "severity": "Medium",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "In Progress",
+        "timestamp": "2025-05-06T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0006",
+        "module": "Payment Gateway",
+        "severity": "High",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Resolved",
+        "timestamp": "2025-05-07T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0007",
+        "module": "Recommendation Engine",
+        "severity": "Critical",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Closed",
+        "timestamp": "2025-05-08T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0008",
+        "module": "Search",
+        "severity": "Low",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Open",
+        "timestamp": "2025-05-09T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0009",
+        "module": "User Profile",
+        "severity": "Medium",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "In Progress",
+        "timestamp": "2025-05-10T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0010",
+        "module": "Checkout",
+        "severity": "High",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Resolved",
+        "timestamp": "2025-05-11T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0011",
+        "module": "Payment Gateway",
+        "severity": "Critical",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Closed",
+        "timestamp": "2025-05-12T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0012",
+        "module": "Recommendation Engine",
+        "severity": "Low",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Open",
+        "timestamp": "2025-05-13T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0013",
+        "module": "Search",
+        "severity": "Medium",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "In Progress",
+        "timestamp": "2025-05-14T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0014",
+        "module": "User Profile",
+        "severity": "High",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Resolved",
+        "timestamp": "2025-05-15T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0015",
+        "module": "Checkout",
+        "severity": "Critical",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Closed",
+        "timestamp": "2025-05-16T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0016",
+        "module": "Payment Gateway",
+        "severity": "Low",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Open",
+        "timestamp": "2025-05-17T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0017",
+        "module": "Recommendation Engine",
+        "severity": "Medium",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "In Progress",
+        "timestamp": "2025-05-18T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0018",
+        "module": "Search",
+        "severity": "High",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Resolved",
+        "timestamp": "2025-05-19T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0019",
+        "module": "User Profile",
+        "severity": "Critical",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Closed",
+        "timestamp": "2025-05-20T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0020",
+        "module": "Checkout",
+        "severity": "Low",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Open",
+        "timestamp": "2025-05-21T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0021",
+        "module": "Payment Gateway",
+        "severity": "Medium",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "In Progress",
+        "timestamp": "2025-05-22T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0022",
+        "module": "Recommendation Engine",
+        "severity": "High",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Resolved",
+        "timestamp": "2025-05-23T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0023",
+        "module": "Search",
+        "severity": "Critical",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Closed",
+        "timestamp": "2025-05-24T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0024",
+        "module": "User Profile",
+        "severity": "Low",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Open",
+        "timestamp": "2025-05-25T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0025",
+        "module": "Checkout",
+        "severity": "Medium",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "In Progress",
+        "timestamp": "2025-05-26T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0026",
+        "module": "Payment Gateway",
+        "severity": "High",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Resolved",
+        "timestamp": "2025-05-27T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0027",
+        "module": "Recommendation Engine",
+        "severity": "Critical",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Closed",
+        "timestamp": "2025-05-28T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0028",
+        "module": "Search",
+        "severity": "Low",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Open",
+        "timestamp": "2025-05-29T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0029",
+        "module": "User Profile",
+        "severity": "Medium",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "In Progress",
+        "timestamp": "2025-05-30T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0030",
+        "module": "Checkout",
+        "severity": "High",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Resolved",
+        "timestamp": "2025-05-01T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0031",
+        "module": "Payment Gateway",
+        "severity": "Critical",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Closed",
+        "timestamp": "2025-05-02T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0032",
+        "module": "Recommendation Engine",
+        "severity": "Low",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Open",
+        "timestamp": "2025-05-03T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0033",
+        "module": "Search",
+        "severity": "Medium",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "In Progress",
+        "timestamp": "2025-05-04T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0034",
+        "module": "User Profile",
+        "severity": "High",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Resolved",
+        "timestamp": "2025-05-05T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0035",
+        "module": "Checkout",
+        "severity": "Critical",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Closed",
+        "timestamp": "2025-05-06T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0036",
+        "module": "Payment Gateway",
+        "severity": "Low",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Open",
+        "timestamp": "2025-05-07T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0037",
+        "module": "Recommendation Engine",
+        "severity": "Medium",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "In Progress",
+        "timestamp": "2025-05-08T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0038",
+        "module": "Search",
+        "severity": "High",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Resolved",
+        "timestamp": "2025-05-09T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0039",
+        "module": "User Profile",
+        "severity": "Critical",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Closed",
+        "timestamp": "2025-05-10T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0040",
+        "module": "Checkout",
+        "severity": "Low",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Open",
+        "timestamp": "2025-05-11T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0041",
+        "module": "Payment Gateway",
+        "severity": "Medium",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "In Progress",
+        "timestamp": "2025-05-12T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0042",
+        "module": "Recommendation Engine",
+        "severity": "High",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Resolved",
+        "timestamp": "2025-05-13T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0043",
+        "module": "Search",
+        "severity": "Critical",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Closed",
+        "timestamp": "2025-05-14T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0044",
+        "module": "User Profile",
+        "severity": "Low",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Open",
+        "timestamp": "2025-05-15T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0045",
+        "module": "Checkout",
+        "severity": "Medium",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "In Progress",
+        "timestamp": "2025-05-16T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0046",
+        "module": "Payment Gateway",
+        "severity": "High",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Resolved",
+        "timestamp": "2025-05-17T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0047",
+        "module": "Recommendation Engine",
+        "severity": "Critical",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Closed",
+        "timestamp": "2025-05-18T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0048",
+        "module": "Search",
+        "severity": "Low",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Open",
+        "timestamp": "2025-05-19T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0049",
+        "module": "User Profile",
+        "severity": "Medium",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "In Progress",
+        "timestamp": "2025-05-20T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0050",
+        "module": "Checkout",
+        "severity": "High",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Resolved",
+        "timestamp": "2025-05-21T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0051",
+        "module": "Payment Gateway",
+        "severity": "Critical",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Closed",
+        "timestamp": "2025-05-22T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0052",
+        "module": "Recommendation Engine",
+        "severity": "Low",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Open",
+        "timestamp": "2025-05-23T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0053",
+        "module": "Search",
+        "severity": "Medium",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "In Progress",
+        "timestamp": "2025-05-24T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0054",
+        "module": "User Profile",
+        "severity": "High",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Resolved",
+        "timestamp": "2025-05-25T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0055",
+        "module": "Checkout",
+        "severity": "Critical",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Closed",
+        "timestamp": "2025-05-26T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0056",
+        "module": "Payment Gateway",
+        "severity": "Low",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Open",
+        "timestamp": "2025-05-27T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0057",
+        "module": "Recommendation Engine",
+        "severity": "Medium",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "In Progress",
+        "timestamp": "2025-05-28T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0058",
+        "module": "Search",
+        "severity": "High",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Resolved",
+        "timestamp": "2025-05-29T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0059",
+        "module": "User Profile",
+        "severity": "Critical",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Closed",
+        "timestamp": "2025-05-30T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0060",
+        "module": "Checkout",
+        "severity": "Low",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Open",
+        "timestamp": "2025-05-01T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0061",
+        "module": "Payment Gateway",
+        "severity": "Medium",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "In Progress",
+        "timestamp": "2025-05-02T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0062",
+        "module": "Recommendation Engine",
+        "severity": "High",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Resolved",
+        "timestamp": "2025-05-03T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0063",
+        "module": "Search",
+        "severity": "Critical",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Closed",
+        "timestamp": "2025-05-04T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0064",
+        "module": "User Profile",
+        "severity": "Low",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Open",
+        "timestamp": "2025-05-05T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0065",
+        "module": "Checkout",
+        "severity": "Medium",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "In Progress",
+        "timestamp": "2025-05-06T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0066",
+        "module": "Payment Gateway",
+        "severity": "High",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Resolved",
+        "timestamp": "2025-05-07T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0067",
+        "module": "Recommendation Engine",
+        "severity": "Critical",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Closed",
+        "timestamp": "2025-05-08T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0068",
+        "module": "Search",
+        "severity": "Low",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Open",
+        "timestamp": "2025-05-09T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0069",
+        "module": "User Profile",
+        "severity": "Medium",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "In Progress",
+        "timestamp": "2025-05-10T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0070",
+        "module": "Checkout",
+        "severity": "High",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Resolved",
+        "timestamp": "2025-05-11T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0071",
+        "module": "Payment Gateway",
+        "severity": "Critical",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Closed",
+        "timestamp": "2025-05-12T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0072",
+        "module": "Recommendation Engine",
+        "severity": "Low",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Open",
+        "timestamp": "2025-05-13T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0073",
+        "module": "Search",
+        "severity": "Medium",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "In Progress",
+        "timestamp": "2025-05-14T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0074",
+        "module": "User Profile",
+        "severity": "High",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Resolved",
+        "timestamp": "2025-05-15T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0075",
+        "module": "Checkout",
+        "severity": "Critical",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Closed",
+        "timestamp": "2025-05-16T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0076",
+        "module": "Payment Gateway",
+        "severity": "Low",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Open",
+        "timestamp": "2025-05-17T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0077",
+        "module": "Recommendation Engine",
+        "severity": "Medium",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "In Progress",
+        "timestamp": "2025-05-18T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0078",
+        "module": "Search",
+        "severity": "High",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Resolved",
+        "timestamp": "2025-05-19T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0079",
+        "module": "User Profile",
+        "severity": "Critical",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Closed",
+        "timestamp": "2025-05-20T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0080",
+        "module": "Checkout",
+        "severity": "Low",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Open",
+        "timestamp": "2025-05-21T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0081",
+        "module": "Payment Gateway",
+        "severity": "Medium",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "In Progress",
+        "timestamp": "2025-05-22T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0082",
+        "module": "Recommendation Engine",
+        "severity": "High",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Resolved",
+        "timestamp": "2025-05-23T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0083",
+        "module": "Search",
+        "severity": "Critical",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Closed",
+        "timestamp": "2025-05-24T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0084",
+        "module": "User Profile",
+        "severity": "Low",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Open",
+        "timestamp": "2025-05-25T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0085",
+        "module": "Checkout",
+        "severity": "Medium",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "In Progress",
+        "timestamp": "2025-05-26T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0086",
+        "module": "Payment Gateway",
+        "severity": "High",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Resolved",
+        "timestamp": "2025-05-27T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0087",
+        "module": "Recommendation Engine",
+        "severity": "Critical",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Closed",
+        "timestamp": "2025-05-28T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0088",
+        "module": "Search",
+        "severity": "Low",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Open",
+        "timestamp": "2025-05-29T12:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0089",
+        "module": "User Profile",
+        "severity": "Medium",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "In Progress",
+        "timestamp": "2025-05-30T13:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0090",
+        "module": "Checkout",
+        "severity": "High",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Resolved",
+        "timestamp": "2025-05-01T14:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0091",
+        "module": "Payment Gateway",
+        "severity": "Critical",
+        "reported_by": "engineer_1@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Closed",
+        "timestamp": "2025-05-02T15:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0092",
+        "module": "Recommendation Engine",
+        "severity": "Low",
+        "reported_by": "engineer_2@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "Open",
+        "timestamp": "2025-05-03T16:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0093",
+        "module": "Search",
+        "severity": "Medium",
+        "reported_by": "engineer_3@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "In Progress",
+        "timestamp": "2025-05-04T17:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0094",
+        "module": "User Profile",
+        "severity": "High",
+        "reported_by": "engineer_4@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Resolved",
+        "timestamp": "2025-05-05T18:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0095",
+        "module": "Checkout",
+        "severity": "Critical",
+        "reported_by": "engineer_5@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Closed",
+        "timestamp": "2025-05-06T19:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0096",
+        "module": "Payment Gateway",
+        "severity": "Low",
+        "reported_by": "engineer_6@zepto.com",
+        "description": "Intermittent failure when processing payment",
+        "status": "Open",
+        "timestamp": "2025-05-07T8:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0097",
+        "module": "Recommendation Engine",
+        "severity": "Medium",
+        "reported_by": "engineer_7@zepto.com",
+        "description": "Intermittent failure when fetching recommendations",
+        "status": "In Progress",
+        "timestamp": "2025-05-08T9:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0098",
+        "module": "Search",
+        "severity": "High",
+        "reported_by": "engineer_8@zepto.com",
+        "description": "Intermittent failure when searching items",
+        "status": "Resolved",
+        "timestamp": "2025-05-09T10:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0099",
+        "module": "User Profile",
+        "severity": "Critical",
+        "reported_by": "engineer_9@zepto.com",
+        "description": "Intermittent failure when updating user data",
+        "status": "Closed",
+        "timestamp": "2025-05-10T11:00:00Z"
+    },
+    {
+        "bug_id": "BUG-0100",
+        "module": "Checkout",
+        "severity": "Low",
+        "reported_by": "engineer_0@zepto.com",
+        "description": "Intermittent failure when loading items",
+        "status": "Open",
+        "timestamp": "2025-05-11T12:00:00Z"
+    }
+]

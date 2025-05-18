@@ -113,6 +113,31 @@ The codebase has been cleaned up to:
      pip install llama-cpp-python
      ```
 
+6. Download the required model files:
+   - Create a `models` directory in the project root if it doesn't exist
+   - Download the following models from Hugging Face or other trusted sources:
+     * Mistral-7B-Instruct: `mistral-7b-instruct-v0.1.Q4_K_M.gguf`
+     * CodeLlama-7B-Instruct: `codellama-7b-instruct.Q4_K_M.gguf`
+   - Place the downloaded model files in the `models` directory
+
+   Example download commands (replace with actual URLs):
+   ```bash
+   # For Mistral-7B
+   wget https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf -O models/mistral-7b-instruct-v0.1.Q4_K_M.gguf
+
+   # For CodeLlama-7B
+   wget https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF/resolve/main/codellama-7b-instruct.Q4_K_M.gguf -O models/codellama-7b-instruct.Q4_K_M.gguf
+   ```
+
+7. Verify model paths in `run.py`:
+   - Open `run.py` in an editor
+   - Ensure the model paths match your downloaded model filenames:
+     ```python
+     # Example paths in run.py
+     TEXT_MODEL_PATH = "models/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+     CODE_MODEL_PATH = "models/codellama-7b-instruct.Q4_K_M.gguf"
+     ```
+
 ## Running the Application
 
 ### Starting All Servers at Once
@@ -129,29 +154,91 @@ You can start all servers at once using the provided scripts:
   ./start-servers.sh
   ```
 
-### Start the Frontend
+### Manual Startup Process
 
-```bash
+If you prefer to start each component individually:
+
+1. **Start the Local Models API Server**:
+   ```bash
+   python run.py
+   ```
+   The server will run on http://localhost:8000
+
+2. **Start the Sequential Thinking Server**:
+   ```bash
+   npm run thinking-server
+   ```
+   The thinking server will run on http://localhost:8001
+
+3. **Start the Frontend**:
+   ```bash
+   npm run dev
+   ```
+   The frontend will be available at http://localhost:5173
+
+4. **Access the Application**:
+   Open your browser and navigate to http://localhost:5173
+
 npm run dev
-```
-
-### Start the Local Models API Server
-
-```bash
-python run.py
-```
-
-Or with uvicorn directly:
-
-```bash
+cd models;python run.py
 python -m uvicorn run:app --host 0.0.0.0 --port 8000 --reload
-```
+npm run thinki Thinking Server
+.\start-AgenTick-server.ps1
 
-### Start the Sequential Thinking Server
+### Configuration
 
-```bash
-npm run thinking-server
-```
+By default, the application connects to the following endpoints:
+- Model API: http://localhost:8000
+- Thinking Server: http://localhost:8001
+
+If you need to change these, you can modify the connection settings in:
+- `src/lib/api.ts` for API endpoints
+- `src/sequentialThinkingServer.ts` for thinking server configuration
+
+### Troubleshooting Common Issues
+
+1. **Model Loading Errors**:
+   - Verify model files exist in the `models/` directory
+   - Check that file paths in `run.py` match your actual model filenames
+   - Ensure you have enough RAM (at least 8GB recommended for 7B models)
+
+2. **Connection Errors**:
+   - Verify all servers are running
+   - Check console outputs for error messages
+   - Ensure ports 8000, 8001, and 5173 are not in use by other applications
+
+3. **Performance Issues**:
+   - Close unnecessary applications to free up memory
+   - Consider using smaller model quantizations if responses are too slow
+
+### Verifying Full Installation
+
+Once you have all components running, perform these checks to verify everything is working correctly:
+
+1. **API Server Test**:
+   ```bash
+   curl http://localhost:8000/status
+   ```
+   You should receive a JSON response with server status information.
+
+2. **Thinking Server Test**:
+   ```bash
+   curl http://localhost:8001/health
+   ```
+   You should receive a response indicating the thinking server is healthy.
+
+3. **End-to-End Test**:
+   - Open the web interface at http://localhost:5173
+   - Start a new conversation
+   - Type a simple query like "Hello, how are you?"
+   - Verify you receive a response from the model
+   - Try enabling sequential thinking for a more complex query
+
+If all components are working correctly, you should be able to:
+- Switch between text and code models
+- Send messages and receive responses
+- Use sequential thinking for complex queries
+- Save and load conversations
 
 ## Model Information
 

@@ -1,0 +1,8 @@
+Here are the results I found in the bug reports:
+
+Found 2 bugs matching your criteria:
+
+Payment Gateway (2 bugs):
+- BUG-001: Payment processing timeout on high-volume transactions
+  Severity: Critical, Status: Open
+- BUG-005: Credit card validation fails for certain internation

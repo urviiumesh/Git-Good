@@ -1,0 +1,39 @@
+{
+  "inventory_logs": [
+    {
+      "item_id": "INV001",
+      "item_name": "Laptop",
+      "quantity": 50,
+      "last_updated": "2024-04-15T10:30:00Z",
+      "status": "In Stock"
+    },
+    {
+      "item_id": "INV002",
+      "item_name": "Monitor",
+      "quantity": 30,
+      "last_updated": "2024-04-15T11:15:00Z",
+      "status": "In Stock"
+    },
+    {
+      "item_id": "INV003",
+      "item_name": "Keyboard",
+      "quantity": 100,
+      "last_updated": "2024-04-15T12:00:00Z",
+      "status": "Low Stock"
+    },
+    {
+      "item_id": "INV004",
+      "item_name": "Mouse",
+      "quantity": 75,
+      "last_updated": "2024-04-15T13:45:00Z",
+      "status": "In Stock"
+    },
+    {
+      "item_id": "INV005",
+      "item_name": "Headset",
+      "quantity": 25,
+      "last_updated": "2024-04-15T14:30:00Z",
+      "status": "Out of Stock"
+    }
+  ]
+} 

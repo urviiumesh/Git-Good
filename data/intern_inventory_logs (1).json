@@ -1,0 +1,902 @@
+[
+  {
+    "log_id": "LOG-001",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-05-11",
+    "items_checked": 493,
+    "discrepancies_found": 2,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-002",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-27",
+    "items_checked": 394,
+    "discrepancies_found": 5,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-003",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-05-01",
+    "items_checked": 609,
+    "discrepancies_found": 4,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-004",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-05-13",
+    "items_checked": 661,
+    "discrepancies_found": 5,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-005",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-04-26",
+    "items_checked": 330,
+    "discrepancies_found": 2,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-006",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-04-29",
+    "items_checked": 464,
+    "discrepancies_found": 2,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-007",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-04-17",
+    "items_checked": 521,
+    "discrepancies_found": 3,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-008",
+    "store_id": "STORE-1006",
+    "date_checked": "2025-04-20",
+    "items_checked": 342,
+    "discrepancies_found": 1,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-009",
+    "store_id": "STORE-1006",
+    "date_checked": "2025-04-23",
+    "items_checked": 310,
+    "discrepancies_found": 3,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-010",
+    "store_id": "STORE-1010",
+    "date_checked": "2025-05-11",
+    "items_checked": 329,
+    "discrepancies_found": 0,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-011",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-07",
+    "items_checked": 692,
+    "discrepancies_found": 5,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-012",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-04-25",
+    "items_checked": 461,
+    "discrepancies_found": 3,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-013",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-02",
+    "items_checked": 334,
+    "discrepancies_found": 4,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-014",
+    "store_id": "STORE-1006",
+    "date_checked": "2025-05-13",
+    "items_checked": 634,
+    "discrepancies_found": 2,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-015",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-04-17",
+    "items_checked": 653,
+    "discrepancies_found": 3,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-016",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-04-23",
+    "items_checked": 590,
+    "discrepancies_found": 3,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-017",
+    "store_id": "STORE-1006",
+    "date_checked": "2025-05-09",
+    "items_checked": 574,
+    "discrepancies_found": 0,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-018",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-04-26",
+    "items_checked": 356,
+    "discrepancies_found": 5,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-019",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-04-18",
+    "items_checked": 539,
+    "discrepancies_found": 3,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-020",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-04-28",
+    "items_checked": 564,
+    "discrepancies_found": 1,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-021",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-23",
+    "items_checked": 601,
+    "discrepancies_found": 0,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-022",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-05-01",
+    "items_checked": 581,
+    "discrepancies_found": 4,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-023",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-04-28",
+    "items_checked": 553,
+    "discrepancies_found": 2,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-024",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-17",
+    "items_checked": 585,
+    "discrepancies_found": 5,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-025",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-14",
+    "items_checked": 308,
+    "discrepancies_found": 2,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-026",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-04-23",
+    "items_checked": 684,
+    "discrepancies_found": 4,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-027",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-05-14",
+    "items_checked": 437,
+    "discrepancies_found": 1,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-028",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-04-19",
+    "items_checked": 351,
+    "discrepancies_found": 1,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-029",
+    "store_id": "STORE-1006",
+    "date_checked": "2025-05-08",
+    "items_checked": 506,
+    "discrepancies_found": 0,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-030",
+    "store_id": "STORE-1006",
+    "date_checked": "2025-05-03",
+    "items_checked": 688,
+    "discrepancies_found": 2,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-031",
+    "store_id": "STORE-1010",
+    "date_checked": "2025-04-29",
+    "items_checked": 441,
+    "discrepancies_found": 1,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-032",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-22",
+    "items_checked": 437,
+    "discrepancies_found": 4,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-033",
+    "store_id": "STORE-1010",
+    "date_checked": "2025-04-26",
+    "items_checked": 342,
+    "discrepancies_found": 3,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-034",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-04-25",
+    "items_checked": 300,
+    "discrepancies_found": 0,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-035",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-30",
+    "items_checked": 300,
+    "discrepancies_found": 1,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-036",
+    "store_id": "STORE-1010",
+    "date_checked": "2025-04-25",
+    "items_checked": 634,
+    "discrepancies_found": 1,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-037",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-05-17",
+    "items_checked": 590,
+    "discrepancies_found": 1,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-038",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-05-17",
+    "items_checked": 459,
+    "discrepancies_found": 4,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-039",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-23",
+    "items_checked": 332,
+    "discrepancies_found": 4,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-040",
+    "store_id": "STORE-1010",
+    "date_checked": "2025-05-04",
+    "items_checked": 501,
+    "discrepancies_found": 3,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-041",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-05-06",
+    "items_checked": 477,
+    "discrepancies_found": 5,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-042",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-04-23",
+    "items_checked": 323,
+    "discrepancies_found": 0,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-043",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-05-14",
+    "items_checked": 573,
+    "discrepancies_found": 0,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-044",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-04-18",
+    "items_checked": 371,
+    "discrepancies_found": 3,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-045",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-05-16",
+    "items_checked": 342,
+    "discrepancies_found": 4,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-046",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-05-12",
+    "items_checked": 315,
+    "discrepancies_found": 0,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-047",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-05-15",
+    "items_checked": 691,
+    "discrepancies_found": 3,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-048",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-05-13",
+    "items_checked": 658,
+    "discrepancies_found": 0,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-049",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-05-04",
+    "items_checked": 575,
+    "discrepancies_found": 0,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-050",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-04-22",
+    "items_checked": 589,
+    "discrepancies_found": 3,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-051",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-26",
+    "items_checked": 433,
+    "discrepancies_found": 0,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-052",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-03",
+    "items_checked": 408,
+    "discrepancies_found": 1,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-053",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-05-09",
+    "items_checked": 574,
+    "discrepancies_found": 5,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-054",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-05-09",
+    "items_checked": 410,
+    "discrepancies_found": 1,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-055",
+    "store_id": "STORE-1006",
+    "date_checked": "2025-04-19",
+    "items_checked": 469,
+    "discrepancies_found": 0,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-056",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-05-02",
+    "items_checked": 610,
+    "discrepancies_found": 4,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-057",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-04-20",
+    "items_checked": 338,
+    "discrepancies_found": 4,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-058",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-07",
+    "items_checked": 618,
+    "discrepancies_found": 4,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-059",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-05-04",
+    "items_checked": 614,
+    "discrepancies_found": 2,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-060",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-05-17",
+    "items_checked": 505,
+    "discrepancies_found": 2,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-061",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-04-24",
+    "items_checked": 342,
+    "discrepancies_found": 4,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-062",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-25",
+    "items_checked": 601,
+    "discrepancies_found": 0,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-063",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-11",
+    "items_checked": 342,
+    "discrepancies_found": 3,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-064",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-04-18",
+    "items_checked": 690,
+    "discrepancies_found": 3,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-065",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-05-06",
+    "items_checked": 507,
+    "discrepancies_found": 4,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-066",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-05-14",
+    "items_checked": 521,
+    "discrepancies_found": 5,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-067",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-05-01",
+    "items_checked": 588,
+    "discrepancies_found": 1,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-068",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-04-23",
+    "items_checked": 341,
+    "discrepancies_found": 2,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-069",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-04-21",
+    "items_checked": 354,
+    "discrepancies_found": 2,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-070",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-04-20",
+    "items_checked": 515,
+    "discrepancies_found": 4,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-071",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-05-01",
+    "items_checked": 522,
+    "discrepancies_found": 1,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-072",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-04-28",
+    "items_checked": 608,
+    "discrepancies_found": 4,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-073",
+    "store_id": "STORE-1010",
+    "date_checked": "2025-05-13",
+    "items_checked": 656,
+    "discrepancies_found": 2,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-074",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-04-25",
+    "items_checked": 370,
+    "discrepancies_found": 5,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-075",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-05-06",
+    "items_checked": 489,
+    "discrepancies_found": 3,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-076",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-04-27",
+    "items_checked": 533,
+    "discrepancies_found": 2,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-077",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-04-21",
+    "items_checked": 399,
+    "discrepancies_found": 3,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-078",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-21",
+    "items_checked": 647,
+    "discrepancies_found": 3,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-079",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-05-13",
+    "items_checked": 439,
+    "discrepancies_found": 2,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-080",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-05-13",
+    "items_checked": 670,
+    "discrepancies_found": 2,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-081",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-04-29",
+    "items_checked": 424,
+    "discrepancies_found": 1,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-082",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-05-09",
+    "items_checked": 546,
+    "discrepancies_found": 5,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-083",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-04-28",
+    "items_checked": 360,
+    "discrepancies_found": 3,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-084",
+    "store_id": "STORE-1003",
+    "date_checked": "2025-05-14",
+    "items_checked": 514,
+    "discrepancies_found": 4,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-085",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-05-13",
+    "items_checked": 341,
+    "discrepancies_found": 4,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-086",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-05-06",
+    "items_checked": 512,
+    "discrepancies_found": 3,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-087",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-04-20",
+    "items_checked": 677,
+    "discrepancies_found": 5,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-088",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-04-28",
+    "items_checked": 489,
+    "discrepancies_found": 0,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-089",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-06",
+    "items_checked": 340,
+    "discrepancies_found": 1,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-090",
+    "store_id": "STORE-1001",
+    "date_checked": "2025-05-09",
+    "items_checked": 369,
+    "discrepancies_found": 5,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-091",
+    "store_id": "STORE-1004",
+    "date_checked": "2025-04-30",
+    "items_checked": 422,
+    "discrepancies_found": 4,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-092",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-05-06",
+    "items_checked": 512,
+    "discrepancies_found": 3,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-093",
+    "store_id": "STORE-1007",
+    "date_checked": "2025-04-20",
+    "items_checked": 520,
+    "discrepancies_found": 5,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-094",
+    "store_id": "STORE-1009",
+    "date_checked": "2025-05-13",
+    "items_checked": 602,
+    "discrepancies_found": 5,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-095",
+    "store_id": "STORE-1010",
+    "date_checked": "2025-04-26",
+    "items_checked": 651,
+    "discrepancies_found": 1,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-096",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-05-08",
+    "items_checked": 426,
+    "discrepancies_found": 1,
+    "reported_by": "intern_raj@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-097",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-05-02",
+    "items_checked": 449,
+    "discrepancies_found": 2,
+    "reported_by": "intern_megha@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-098",
+    "store_id": "STORE-1005",
+    "date_checked": "2025-05-13",
+    "items_checked": 410,
+    "discrepancies_found": 2,
+    "reported_by": "intern_sara@zepto.com",
+    "supervisor_approval": true
+  },
+  {
+    "log_id": "LOG-099",
+    "store_id": "STORE-1008",
+    "date_checked": "2025-05-09",
+    "items_checked": 549,
+    "discrepancies_found": 0,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  },
+  {
+    "log_id": "LOG-100",
+    "store_id": "STORE-1002",
+    "date_checked": "2025-04-19",
+    "items_checked": 307,
+    "discrepancies_found": 5,
+    "reported_by": "intern_ali@zepto.com",
+    "supervisor_approval": false
+  }
+]

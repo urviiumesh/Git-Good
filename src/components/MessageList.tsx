@@ -30,7 +30,7 @@ export const MessageList: React.FC<MessageListProps> = ({ messages, isProcessing
       {messages.length === 0 ? (
         <ChatWelcome />
       ) : (
-        <div className="space-y-4 p-3 sm:p-5">
+        <div className="space-y-4 p-3 sm:p-5 message-list-container">
           {messages.map((msg) => (
             <ChatMessageComponent key={msg.id} message={msg} />
           ))}

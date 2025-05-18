@@ -1,0 +1,40 @@
+{
+  "campaigns": [
+    {
+      "campaign_id": "CAMP001",
+      "campaign_name": "Summer Sale 2024",
+      "start_date": "2024-06-01",
+      "end_date": "2024-06-30",
+      "budget": 50000.00,
+      "spent": 25000.00,
+      "impressions": 100000,
+      "clicks": 5000,
+      "conversions": 250,
+      "status": "Active"
+    },
+    {
+      "campaign_id": "CAMP002",
+      "campaign_name": "Back to School 2024",
+      "start_date": "2024-08-01",
+      "end_date": "2024-08-31",
+      "budget": 75000.00,
+      "spent": 0.00,
+      "impressions": 0,
+      "clicks": 0,
+      "conversions": 0,
+      "status": "Planned"
+    },
+    {
+      "campaign_id": "CAMP003",
+      "campaign_name": "Holiday Special 2024",
+      "start_date": "2024-12-01",
+      "end_date": "2024-12-31",
+      "budget": 100000.00,
+      "spent": 0.00,
+      "impressions": 0,
+      "clicks": 0,
+      "conversions": 0,
+      "status": "Planned"
+    }
+  ]
+} 

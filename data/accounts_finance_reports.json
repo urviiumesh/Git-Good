@@ -1,0 +1,40 @@
+{
+  "finance_reports": [
+    {
+      "report_id": "FR001",
+      "report_name": "Q1 2024 Revenue",
+      "period": "2024-01-01 to 2024-03-31",
+      "total_revenue": 150000.00,
+      "total_expenses": 75000.00,
+      "net_profit": 75000.00,
+      "status": "Finalized"
+    },
+    {
+      "report_id": "FR002",
+      "report_name": "Q1 2024 Expenses",
+      "period": "2024-01-01 to 2024-03-31",
+      "total_revenue": 150000.00,
+      "total_expenses": 75000.00,
+      "net_profit": 75000.00,
+      "status": "Finalized"
+    },
+    {
+      "report_id": "FR003",
+      "report_name": "Q2 2024 Revenue",
+      "period": "2024-04-01 to 2024-06-30",
+      "total_revenue": 180000.00,
+      "total_expenses": 90000.00,
+      "net_profit": 90000.00,
+      "status": "Draft"
+    },
+    {
+      "report_id": "FR004",
+      "report_name": "Q2 2024 Expenses",
+      "period": "2024-04-01 to 2024-06-30",
+      "total_revenue": 180000.00,
+      "total_expenses": 90000.00,
+      "net_profit": 90000.00,
+      "status": "Draft"
+    }
+  ]
+} 

@@ -1,0 +1,101 @@
+transaction_id,date,department,expense_type,amount_usd,payment_status,approved_by
+TXN-1001,2025-05-02,Marketing,Equipment,5100,Pending,accountant_1@zepto.com
+TXN-1002,2025-05-03,Development,Advertising,5200,Failed,accountant_2@zepto.com
+TXN-1003,2025-05-04,Operations,Maintenance,5300,Completed,accountant_3@zepto.com
+TXN-1004,2025-05-05,Customer Support,Cloud Services,5400,Pending,accountant_4@zepto.com
+TXN-1005,2025-05-06,Logistics,Salaries,5500,Failed,accountant_0@zepto.com
+TXN-1006,2025-05-07,Marketing,Equipment,5600,Completed,accountant_1@zepto.com
+TXN-1007,2025-05-08,Development,Advertising,5700,Pending,accountant_2@zepto.com
+TXN-1008,2025-05-09,Operations,Maintenance,5800,Failed,accountant_3@zepto.com
+TXN-1009,2025-05-10,Customer Support,Cloud Services,5900,Completed,accountant_4@zepto.com
+TXN-1010,2025-05-11,Logistics,Salaries,6000,Pending,accountant_0@zepto.com
+TXN-1011,2025-05-12,Marketing,Equipment,6100,Failed,accountant_1@zepto.com
+TXN-1012,2025-05-13,Development,Advertising,6200,Completed,accountant_2@zepto.com
+TXN-1013,2025-05-14,Operations,Maintenance,6300,Pending,accountant_3@zepto.com
+TXN-1014,2025-05-15,Customer Support,Cloud Services,6400,Failed,accountant_4@zepto.com
+TXN-1015,2025-05-16,Logistics,Salaries,6500,Completed,accountant_0@zepto.com
+TXN-1016,2025-05-17,Marketing,Equipment,6600,Pending,accountant_1@zepto.com
+TXN-1017,2025-05-18,Development,Advertising,6700,Failed,accountant_2@zepto.com
+TXN-1018,2025-05-19,Operations,Maintenance,6800,Completed,accountant_3@zepto.com
+TXN-1019,2025-05-20,Customer Support,Cloud Services,6900,Pending,accountant_4@zepto.com
+TXN-1020,2025-05-21,Logistics,Salaries,7000,Failed,accountant_0@zepto.com
+TXN-1021,2025-05-22,Marketing,Equipment,7100,Completed,accountant_1@zepto.com
+TXN-1022,2025-05-23,Development,Advertising,7200,Pending,accountant_2@zepto.com
+TXN-1023,2025-05-24,Operations,Maintenance,7300,Failed,accountant_3@zepto.com
+TXN-1024,2025-05-25,Customer Support,Cloud Services,7400,Completed,accountant_4@zepto.com
+TXN-1025,2025-05-26,Logistics,Salaries,7500,Pending,accountant_0@zepto.com
+TXN-1026,2025-05-27,Marketing,Equipment,7600,Failed,accountant_1@zepto.com
+TXN-1027,2025-05-28,Development,Advertising,7700,Completed,accountant_2@zepto.com
+TXN-1028,2025-05-29,Operations,Maintenance,7800,Pending,accountant_3@zepto.com
+TXN-1029,2025-05-30,Customer Support,Cloud Services,7900,Failed,accountant_4@zepto.com
+TXN-1030,2025-05-01,Logistics,Salaries,8000,Completed,accountant_0@zepto.com
+TXN-1031,2025-05-02,Marketing,Equipment,8100,Pending,accountant_1@zepto.com
+TXN-1032,2025-05-03,Development,Advertising,8200,Failed,accountant_2@zepto.com
+TXN-1033,2025-05-04,Operations,Maintenance,8300,Completed,accountant_3@zepto.com
+TXN-1034,2025-05-05,Customer Support,Cloud Services,8400,Pending,accountant_4@zepto.com
+TXN-1035,2025-05-06,Logistics,Salaries,8500,Failed,accountant_0@zepto.com
+TXN-1036,2025-05-07,Marketing,Equipment,8600,Completed,accountant_1@zepto.com
+TXN-1037,2025-05-08,Development,Advertising,8700,Pending,accountant_2@zepto.com
+TXN-1038,2025-05-09,Operations,Maintenance,8800,Failed,accountant_3@zepto.com
+TXN-1039,2025-05-10,Customer Support,Cloud Services,8900,Completed,accountant_4@zepto.com
+TXN-1040,2025-05-11,Logistics,Salaries,9000,Pending,accountant_0@zepto.com
+TXN-1041,2025-05-12,Marketing,Equipment,9100,Failed,accountant_1@zepto.com
+TXN-1042,2025-05-13,Development,Advertising,9200,Completed,accountant_2@zepto.com
+TXN-1043,2025-05-14,Operations,Maintenance,9300,Pending,accountant_3@zepto.com
+TXN-1044,2025-05-15,Customer Support,Cloud Services,9400,Failed,accountant_4@zepto.com
+TXN-1045,2025-05-16,Logistics,Salaries,9500,Completed,accountant_0@zepto.com
+TXN-1046,2025-05-17,Marketing,Equipment,9600,Pending,accountant_1@zepto.com
+TXN-1047,2025-05-18,Development,Advertising,9700,Failed,accountant_2@zepto.com
+TXN-1048,2025-05-19,Operations,Maintenance,9800,Completed,accountant_3@zepto.com
+TXN-1049,2025-05-20,Customer Support,Cloud Services,9900,Pending,accountant_4@zepto.com
+TXN-1050,2025-05-21,Logistics,Salaries,10000,Failed,accountant_0@zepto.com
+TXN-1051,2025-05-22,Marketing,Equipment,10100,Completed,accountant_1@zepto.com
+TXN-1052,2025-05-23,Development,Advertising,10200,Pending,accountant_2@zepto.com
+TXN-1053,2025-05-24,Operations,Maintenance,10300,Failed,accountant_3@zepto.com
+TXN-1054,2025-05-25,Customer Support,Cloud Services,10400,Completed,accountant_4@zepto.com
+TXN-1055,2025-05-26,Logistics,Salaries,10500,Pending,accountant_0@zepto.com
+TXN-1056,2025-05-27,Marketing,Equipment,10600,Failed,accountant_1@zepto.com
+TXN-1057,2025-05-28,Development,Advertising,10700,Completed,accountant_2@zepto.com
+TXN-1058,2025-05-29,Operations,Maintenance,10800,Pending,accountant_3@zepto.com
+TXN-1059,2025-05-30,Customer Support,Cloud Services,10900,Failed,accountant_4@zepto.com
+TXN-1060,2025-05-01,Logistics,Salaries,11000,Completed,accountant_0@zepto.com
+TXN-1061,2025-05-02,Marketing,Equipment,11100,Pending,accountant_1@zepto.com
+TXN-1062,2025-05-03,Development,Advertising,11200,Failed,accountant_2@zepto.com
+TXN-1063,2025-05-04,Operations,Maintenance,11300,Completed,accountant_3@zepto.com
+TXN-1064,2025-05-05,Customer Support,Cloud Services,11400,Pending,accountant_4@zepto.com
+TXN-1065,2025-05-06,Logistics,Salaries,11500,Failed,accountant_0@zepto.com
+TXN-1066,2025-05-07,Marketing,Equipment,11600,Completed,accountant_1@zepto.com
+TXN-1067,2025-05-08,Development,Advertising,11700,Pending,accountant_2@zepto.com
+TXN-1068,2025-05-09,Operations,Maintenance,11800,Failed,accountant_3@zepto.com
+TXN-1069,2025-05-10,Customer Support,Cloud Services,11900,Completed,accountant_4@zepto.com
+TXN-1070,2025-05-11,Logistics,Salaries,12000,Pending,accountant_0@zepto.com
+TXN-1071,2025-05-12,Marketing,Equipment,12100,Failed,accountant_1@zepto.com
+TXN-1072,2025-05-13,Development,Advertising,12200,Completed,accountant_2@zepto.com
+TXN-1073,2025-05-14,Operations,Maintenance,12300,Pending,accountant_3@zepto.com
+TXN-1074,2025-05-15,Customer Support,Cloud Services,12400,Failed,accountant_4@zepto.com
+TXN-1075,2025-05-16,Logistics,Salaries,12500,Completed,accountant_0@zepto.com
+TXN-1076,2025-05-17,Marketing,Equipment,12600,Pending,accountant_1@zepto.com
+TXN-1077,2025-05-18,Development,Advertising,12700,Failed,accountant_2@zepto.com
+TXN-1078,2025-05-19,Operations,Maintenance,12800,Completed,accountant_3@zepto.com
+TXN-1079,2025-05-20,Customer Support,Cloud Services,12900,Pending,accountant_4@zepto.com
+TXN-1080,2025-05-21,Logistics,Salaries,13000,Failed,accountant_0@zepto.com
+TXN-1081,2025-05-22,Marketing,Equipment,13100,Completed,accountant_1@zepto.com
+TXN-1082,2025-05-23,Development,Advertising,13200,Pending,accountant_2@zepto.com
+TXN-1083,2025-05-24,Operations,Maintenance,13300,Failed,accountant_3@zepto.com
+TXN-1084,2025-05-25,Customer Support,Cloud Services,13400,Completed,accountant_4@zepto.com
+TXN-1085,2025-05-26,Logistics,Salaries,13500,Pending,accountant_0@zepto.com
+TXN-1086,2025-05-27,Marketing,Equipment,13600,Failed,accountant_1@zepto.com
+TXN-1087,2025-05-28,Development,Advertising,13700,Completed,accountant_2@zepto.com
+TXN-1088,2025-05-29,Operations,Maintenance,13800,Pending,accountant_3@zepto.com
+TXN-1089,2025-05-30,Customer Support,Cloud Services,13900,Failed,accountant_4@zepto.com
+TXN-1090,2025-05-01,Logistics,Salaries,14000,Completed,accountant_0@zepto.com
+TXN-1091,2025-05-02,Marketing,Equipment,14100,Pending,accountant_1@zepto.com
+TXN-1092,2025-05-03,Development,Advertising,14200,Failed,accountant_2@zepto.com
+TXN-1093,2025-05-04,Operations,Maintenance,14300,Completed,accountant_3@zepto.com
+TXN-1094,2025-05-05,Customer Support,Cloud Services,14400,Pending,accountant_4@zepto.com
+TXN-1095,2025-05-06,Logistics,Salaries,14500,Failed,accountant_0@zepto.com
+TXN-1096,2025-05-07,Marketing,Equipment,14600,Completed,accountant_1@zepto.com
+TXN-1097,2025-05-08,Development,Advertising,14700,Pending,accountant_2@zepto.com
+TXN-1098,2025-05-09,Operations,Maintenance,14800,Failed,accountant_3@zepto.com
+TXN-1099,2025-05-10,Customer Support,Cloud Services,14900,Completed,accountant_4@zepto.com
+TXN-1100,2025-05-11,Logistics,Salaries,15000,Pending,accountant_0@zepto.com

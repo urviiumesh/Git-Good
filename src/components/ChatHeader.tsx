@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatusIndicator } from './StatusIndicator';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Share2, MoreHorizontal, Copy, DownloadCloud, MessageSquare, Code, SwitchCamera, BrainCircuit } from 'lucide-react';
+import { Share2, MoreHorizontal, Copy, DownloadCloud, MessageSquare, Code, SwitchCamera, BrainCircuit, Bot } from 'lucide-react';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -15,6 +15,9 @@ import { getCurrentModel, switchModel, type ModelType } from '../utils/modelServ
 import { useToast } from '@/hooks/use-toast';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useServerStatus } from '@/hooks/useServerStatus';
+import { useAgenTickStatus } from '../hooks/useAgentrickStatus';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface ChatHeaderProps {
   title?: string;
@@ -28,6 +31,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   const [isSwitching, setIsSwitching] = useState(false);
   const { toast } = useToast();
   const { mcpStatus, checkMcpStatus } = useServerStatus();
+  const { status: AgenTickStatus } = useAgenTickStatus();
 
   // Fetch current model on component mount
   useEffect(() => {
@@ -98,6 +102,90 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
     }
   };
 
+  const downloadPdf = async () => {
+    try {
+      // Show toast to inform user the PDF is being generated
+      toast({
+        title: 'Generating PDF',
+        description: 'Please wait while we prepare your chat for download...',
+      });
+      
+      // Find the message list container
+      const element = document.querySelector('.message-list-container') as HTMLElement;
+      
+      if (!element) {
+        throw new Error('Could not find message container element');
+      }
+      
+      // Create canvas from the message list
+      const canvas = await html2canvas(element, {
+        scale: 2, // Higher scale for better quality
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      });
+      
+      // Calculate dimensions
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      // Initialize PDF
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      // Add title
+      pdf.setFontSize(18);
+      pdf.text('EdgeGPT Chat Export', 105, 15, { align: 'center' });
+      pdf.setFontSize(12);
+      const timestamp = new Date().toLocaleString();
+      pdf.text(`Generated: ${timestamp}`, 105, 22, { align: 'center' });
+      
+      // Add separator line
+      pdf.setDrawColor(200, 200, 200);
+      pdf.line(20, 25, 190, 25);
+      
+      // Calculate the number of pages
+      let heightLeft = imgHeight;
+      let position = 30; // Start position after title
+      
+      // Add image content of the first page
+      pdf.addImage(canvas, 'PNG', 10, position, imgWidth - 20, imgHeight);
+      heightLeft -= (pageHeight - position);
+      
+      // Add subsequent pages if content overflows
+      while (heightLeft > 0) {
+        position = 10; // Reset position for new page
+        pdf.addPage();
+        pdf.addImage(
+          canvas,
+          'PNG',
+          10,
+          -(pageHeight - position - imgHeight),
+          imgWidth - 20,
+          imgHeight
+        );
+        heightLeft -= (pageHeight - position);
+      }
+      
+      // Save PDF
+      pdf.save('edgegpt-chat-export.pdf');
+      
+      // Show success toast
+      toast({
+        title: 'PDF Downloaded',
+        description: 'Your chat has been exported as a PDF file.',
+      });
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      
+      toast({
+        title: 'PDF Generation Failed',
+        description: 'There was an error creating your PDF. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const modelDisplayName = currentModel === 'text' ? 'Mistral-7B (Text)' : 'CodeLlama-7B (Code)';
   
   // Convert our status type to the existing component status type
@@ -155,6 +243,25 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+
+        {/* AgenTick Server Status */}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="flex items-center gap-1 cursor-pointer">
+                <Bot className="h-4 w-4 text-muted-foreground" />
+                <StatusIndicator 
+                  status={AgenTickStatus} 
+                  label="AgenTick" 
+                  className="ml-1" 
+                />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              <p>AgenTick Server: {AgenTickStatus}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         
         <div className="hidden md:flex items-center mr-2">
           <span className="text-xs text-muted-foreground mr-2">Model:</span>
@@ -193,7 +300,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
                 <Copy className="h-4 w-4 mr-2" />
                 <span>Copy conversation</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={downloadPdf}>
                 <DownloadCloud className="h-4 w-4 mr-2" />
                 <span>Export as PDF</span>
               </DropdownMenuItem>
